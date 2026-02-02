@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snapshot Confirmation</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .summary-box {
+      background: #f0f4ff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      text-align: left;
+      border-left: 5px solid #4a6cf7;
+    }
+
+    .summary-box p {
+      margin: 8px 0;
+      font-size: 16px;
+      color: #333;
+    }
+
+    button {
+      background: #4a6cf7;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #3a57d0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Student Snapshot Saved</h2>
+
+    <div class="summary-box">
+      <p><strong>Student Name:</strong> <span id="name"></span></p>
+      <p><strong>Grade:</strong> <span id="grade"></span></p>
+    </div>
+
+    <button onclick="window.print()">Print Snapshot</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("name").innerText = params.get("studentName");
+    document.getElementById("grade").innerText = params.get("grade");
+  </script>
+</body>
+</html>
