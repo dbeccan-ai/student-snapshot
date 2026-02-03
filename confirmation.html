@@ -1,84 +1,519 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snapshot Confirmation</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Snapshot Confirmation | D.E.Bs Learning Academy</title>
 
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fa;
-      margin: 0;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
+    :root{
+      --bg:#6c67c9;
+      --bg-dark:#5e58be;
+      --card:#ffffff;
+      --ink:#0f172a;
+      --muted:#475569;
+      --line:#dbe4f2;
+      --bar:#6b63c6;
+      --bar-dark:#544db4;
+      --accent:#ffde59;
+      --radius:12px;
+      --radius2:10px;
+      --shadow:0 18px 45px rgba(0,0,0,.22);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
     }
 
-    .container {
-      background: white;
-      padding: 30px;
-      max-width: 500px;
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      text-align: center;
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:var(--font);
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg-dark) 100%);
+      color:var(--ink);
+      min-height:100vh;
+      padding: 24px 12px 60px;
+    }
+    .container{
+      max-width: 860px;
+      margin: 0 auto;
     }
 
-    h2 {
-      color: #333;
-      margin-bottom: 20px;
+    /* top action bar */
+    .toolbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-bottom: 14px;
+    }
+    .btn{
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.12);
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .08s ease, background .18s ease;
+      user-select:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.18); transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0); }
+
+    .btn-yellow{
+      background: var(--accent);
+      border-color: rgba(0,0,0,.08);
+      color:#111827;
+    }
+    .btn-yellow:hover{ filter: brightness(0.98); }
+
+    /* report card */
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.05);
     }
 
-    .summary-box {
-      background: #f0f4ff;
-      padding: 20px;
+    .head{
+      padding: 20px 18px 12px;
+      text-align:center;
+      border-bottom: 1px solid var(--line);
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,222,89,.25);
+      color:#1C2D5A;
+      font-weight: 900;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .head h1{
+      margin:0;
+      font-size: 20px;
+      font-weight: 1000;
+      letter-spacing: .2px;
+    }
+    .head .sub{
+      margin: 6px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    .content{ padding: 14px; }
+
+    .section{
+      border: 1px solid var(--line);
+      border-radius: var(--radius2);
+      margin-bottom: 12px;
+      overflow:hidden;
+      background:#fff;
+    }
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      background: linear-gradient(180deg, var(--bar) 0%, var(--bar-dark) 100%);
+      color:#fff;
+      font-weight: 1000;
+      font-size: 13px;
+      letter-spacing: .2px;
+    }
+    .badge{
+      width:18px;height:18px;
+      border-radius:4px;
+      background: rgba(255,255,255,.18);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 11px;
+      font-weight: 1000;
+    }
+    .section-body{ padding: 12px; }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 14px;
+    }
+    @media (max-width: 760px){
+      .grid-2{ grid-template-columns: 1fr; }
+    }
+    .kv{
+      border: 1px solid var(--line);
       border-radius: 10px;
-      margin-bottom: 25px;
-      text-align: left;
-      border-left: 5px solid #4a6cf7;
+      padding: 10px 10px;
+      background: #fbfcff;
+    }
+    .k{
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+    .v{
+      font-size: 13px;
+      color: #0b1220;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: pre-wrap;
+    }
+    .v.muted{
+      font-weight: 600;
+      color: #64748b;
     }
 
-    .summary-box p {
-      margin: 8px 0;
-      font-size: 16px;
-      color: #333;
+    .hint{
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0 0 10px;
+      line-height: 1.35;
     }
 
-    button {
-      background: #4a6cf7;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.2s;
+    .footer{
+      padding: 12px 14px 16px;
+      border-top: 1px solid var(--line);
+      background: #fbfcff;
+      text-align:center;
+      color: var(--muted);
+      font-size: 12px;
     }
 
-    button:hover {
-      background: #3a57d0;
+    @media print{
+      body{ background:#fff; padding:0; }
+      .toolbar{ display:none !important; }
+      .card{ box-shadow:none; border-radius:0; }
+      .footer{ border-top: 1px solid #ddd; }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-    <h2>Student Snapshot Saved</h2>
 
-    <div class="summary-box">
-      <p><strong>Student Name:</strong> <span id="name"></span></p>
-      <p><strong>Grade:</strong> <span id="grade"></span></p>
+    <!-- ACTIONS -->
+    <div class="toolbar">
+      <button class="btn btn-yellow" id="btnPrint" type="button">🖨️ Print / Save as PDF</button>
+      <button class="btn" id="btnDownloadTXT" type="button">📄 Download TXT</button>
+      <button class="btn" id="btnDownloadHTML" type="button">🌐 Download HTML Report</button>
+      <button class="btn" id="btnDownloadJSON" type="button">🧾 Download JSON</button>
+      <a class="btn" id="btnBack" href="index.html" style="text-decoration:none; display:inline-flex; align-items:center;">↩️ Back to Form</a>
     </div>
 
-    <button onclick="window.print()">Print Snapshot</button>
+    <!-- REPORT -->
+    <div class="card" id="reportCard">
+      <div class="head">
+        <div class="pill">✅ Snapshot Saved</div>
+        <h1>Mid-Year Student Snapshot</h1>
+        <div class="sub">D.E.Bs Learning Academy • “Unlocking Brilliance Through Learning”</div>
+      </div>
+
+      <div class="content">
+        <p class="hint">
+          🎯 This page shows everything you entered.  
+          Use <b>Print / Save as PDF</b> to save it on your device (works on phones + computers).
+        </p>
+
+        <!-- STUDENT INFO -->
+        <div class="section">
+          <div class="section-title"><span class="badge">A</span> 👧🏽📘 Student Information</div>
+          <div class="section-body">
+            <div class="grid-2">
+              <div class="kv"><div class="k">Student Name</div><div class="v" id="studentName"></div></div>
+              <div class="kv"><div class="k">Grade</div><div class="v" id="grade"></div></div>
+              <div class="kv"><div class="k">School</div><div class="v" id="school"></div></div>
+              <div class="kv"><div class="k">Teacher</div><div class="v" id="teacher"></div></div>
+              <div class="kv"><div class="k">Period</div><div class="v" id="period"></div></div>
+              <div class="kv"><div class="k">Date</div><div class="v" id="date"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- YEAR DESCRIPTION -->
+        <div class="section">
+          <div class="section-title"><span class="badge">B</span> 😊🏫 How School Feels Right Now</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">📝 Describe the school year so far</div>
+              <div class="v" id="yearDescription"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STRENGTHS -->
+        <div class="section">
+          <div class="section-title"><span class="badge">C</span> 🌟 Strengths & Wins</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">✅ Strengths</div>
+              <div class="v" id="strengths"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONCERNS -->
+        <div class="section">
+          <div class="section-title"><span class="badge">D</span> ⚠️ Areas of Concern</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">🚧 Concerns</div>
+              <div class="v" id="concerns"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ATTENDANCE -->
+        <div class="section">
+          <div class="section-title"><span class="badge">E</span> 📅 Attendance Notes</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">🕒 Attendance comments</div>
+              <div class="v" id="attendance"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BEHAVIOR -->
+        <div class="section">
+          <div class="section-title"><span class="badge">F</span> 🎯 Behavior Notes</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">🧠 Behavior comments</div>
+              <div class="v" id="behavior"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PARENT COMMENTS -->
+        <div class="section">
+          <div class="section-title"><span class="badge">G</span> 💬 Parent Comments</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">👩‍👧 Parent feedback</div>
+              <div class="v" id="parentComments"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ADDITIONAL NOTES -->
+        <div class="section">
+          <div class="section-title"><span class="badge">H</span> 🧾 Additional Notes</div>
+          <div class="section-body">
+            <div class="kv">
+              <div class="k">📝 Anything else?</div>
+              <div class="v" id="additionalNotes"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        💛 Tip: Save as PDF and keep it in your phone “Files” folder or email it to yourself for easy access.
+      </div>
+    </div>
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("name").innerText = params.get("studentName");
-    document.getElementById("grade").innerText = params.get("grade");
+    // ---------- helpers ----------
+    const $ = (id) => document.getElementById(id);
+
+    function escapeHTML(str){
+      return String(str ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function valOrDash(v){
+      const s = (v ?? "").toString().trim();
+      return s.length ? s : "—";
+    }
+
+    // ---------- read data ----------
+    // Expected query params (from your form redirect):
+    // studentName, grade, school, teacher, period, date,
+    // yearDescription, strengths, concerns, attendance, behavior, parentComments, additionalNotes
+    function readFromQuery(){
+      const params = new URLSearchParams(window.location.search);
+      const obj = {};
+      for (const [k,v] of params.entries()){
+        obj[k] = v;
+      }
+      return obj;
+    }
+
+    // Fallback: if no query string, try localStorage draft (optional)
+    function readFromLocalStorage(){
+      // If your form page uses a key, add it here later.
+      // Keeping it simple + safe.
+      return null;
+    }
+
+    const data = (() => {
+      const q = readFromQuery();
+      if (Object.keys(q).length) return q;
+      return readFromLocalStorage() || {};
+    })();
+
+    // ---------- render ----------
+    const fields = [
+      "studentName","grade","school","teacher","period","date",
+      "yearDescription","strengths","concerns","attendance","behavior",
+      "parentComments","additionalNotes"
+    ];
+
+    fields.forEach((key) => {
+      const el = $(key);
+      if(!el) return;
+      const value = valOrDash(data[key]);
+      // preserve line breaks safely
+      el.innerHTML = escapeHTML(value);
+      if(value === "—") el.classList.add("muted");
+    });
+
+    // ---------- actions ----------
+    $("btnPrint").addEventListener("click", () => window.print());
+
+    function makeTextReport(){
+      const lines = [];
+      lines.push("MID-YEAR STUDENT SNAPSHOT");
+      lines.push("D.E.Bs Learning Academy");
+      lines.push("=====================================");
+      lines.push("");
+      lines.push("A) Student Information");
+      lines.push(`Student Name: ${valOrDash(data.studentName)}`);
+      lines.push(`Grade: ${valOrDash(data.grade)}`);
+      lines.push(`School: ${valOrDash(data.school)}`);
+      lines.push(`Teacher: ${valOrDash(data.teacher)}`);
+      lines.push(`Period: ${valOrDash(data.period)}`);
+      lines.push(`Date: ${valOrDash(data.date)}`);
+      lines.push("");
+      lines.push("B) How School Feels Right Now");
+      lines.push(valOrDash(data.yearDescription));
+      lines.push("");
+      lines.push("C) Strengths & Wins");
+      lines.push(valOrDash(data.strengths));
+      lines.push("");
+      lines.push("D) Areas of Concern");
+      lines.push(valOrDash(data.concerns));
+      lines.push("");
+      lines.push("E) Attendance Notes");
+      lines.push(valOrDash(data.attendance));
+      lines.push("");
+      lines.push("F) Behavior Notes");
+      lines.push(valOrDash(data.behavior));
+      lines.push("");
+      lines.push("G) Parent Comments");
+      lines.push(valOrDash(data.parentComments));
+      lines.push("");
+      lines.push("H) Additional Notes");
+      lines.push(valOrDash(data.additionalNotes));
+      lines.push("");
+      return lines.join("\n");
+    }
+
+    function downloadBlob(content, filename, type){
+      const blob = new Blob([content], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function safeFileName(){
+      const name = (data.studentName || "student").toString().trim().replace(/[^\w\s-]/g,"").replace(/\s+/g,"_");
+      const grade = (data.grade || "").toString().trim().replace(/[^\w\s-]/g,"").replace(/\s+/g,"_");
+      return `${name}${grade ? "_Grade_" + grade : ""}`;
+    }
+
+    $("btnDownloadTXT").addEventListener("click", () => {
+      downloadBlob(makeTextReport(), `snapshot_${safeFileName()}.txt`, "text/plain;charset=utf-8");
+    });
+
+    $("btnDownloadJSON").addEventListener("click", () => {
+      const obj = {};
+      for(const key of fields) obj[key] = data[key] || "";
+      downloadBlob(JSON.stringify(obj, null, 2), `snapshot_${safeFileName()}.json`, "application/json;charset=utf-8");
+    });
+
+    $("btnDownloadHTML").addEventListener("click", () => {
+      // Create a clean standalone report HTML
+      const reportHTML = `
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mid-Year Snapshot Report</title>
+<style>
+  body{font-family: Arial, sans-serif; background:#f6f7fb; margin:0; padding:24px;}
+  .wrap{max-width:860px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;}
+  .h{padding:16px 18px;border-bottom:1px solid #e5e7eb;}
+  .h h1{margin:0;font-size:18px;}
+  .h p{margin:6px 0 0;color:#475569;font-style:italic;}
+  .sec{padding:14px 18px;border-bottom:1px solid #eef2ff;}
+  .sec h2{margin:0 0 8px;font-size:14px;}
+  .box{white-space:pre-wrap;line-height:1.45;color:#0f172a;}
+  .muted{color:#64748b;}
+</style></head><body>
+<div class="wrap">
+  <div class="h">
+    <h1>Mid-Year Student Snapshot</h1>
+    <p>D.E.Bs Learning Academy • Unlocking Brilliance Through Learning</p>
+  </div>
+
+  <div class="sec"><h2>👧🏽📘 Student Information</h2>
+    <div class="box">
+Student Name: ${escapeHTML(valOrDash(data.studentName))}
+Grade: ${escapeHTML(valOrDash(data.grade))}
+School: ${escapeHTML(valOrDash(data.school))}
+Teacher: ${escapeHTML(valOrDash(data.teacher))}
+Period: ${escapeHTML(valOrDash(data.period))}
+Date: ${escapeHTML(valOrDash(data.date))}
+    </div>
+  </div>
+
+  <div class="sec"><h2>😊🏫 How School Feels Right Now</h2>
+    <div class="box">${escapeHTML(valOrDash(data.yearDescription))}</div>
+  </div>
+
+  <div class="sec"><h2>🌟 Strengths & Wins</h2>
+    <div class="box">${escapeHTML(valOrDash(data.strengths))}</div>
+  </div>
+
+  <div class="sec"><h2>⚠️ Areas of Concern</h2>
+    <div class="box">${escapeHTML(valOrDash(data.concerns))}</div>
+  </div>
+
+  <div class="sec"><h2>📅 Attendance Notes</h2>
+    <div class="box">${escapeHTML(valOrDash(data.attendance))}</div>
+  </div>
+
+  <div class="sec"><h2>🎯 Behavior Notes</h2>
+    <div class="box">${escapeHTML(valOrDash(data.behavior))}</div>
+  </div>
+
+  <div class="sec"><h2>💬 Parent Comments</h2>
+    <div class="box">${escapeHTML(valOrDash(data.parentComments))}</div>
+  </div>
+
+  <div class="sec"><h2>🧾 Additional Notes</h2>
+    <div class="box">${escapeHTML(valOrDash(data.additionalNotes))}</div>
+  </div>
+</div>
+</body></html>
+      `.trim();
+
+      downloadBlob(reportHTML, `snapshot_${safeFileName()}.html`, "text/html;charset=utf-8");
+    });
   </script>
 </body>
 </html>
