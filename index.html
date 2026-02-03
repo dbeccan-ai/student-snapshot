@@ -1,65 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Mid-Year Student Progress Snapshot</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to right, #f0f4ff, #e0f7fa);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+<script>
+  // ================================
+  // ✅ GOOGLE SHEETS (APPS SCRIPT) URL
+  // ================================
+  const SHEETS_WEBAPP_URL =
+    "https://script.google.com/macros/s/AKfycbwPp72sNGIDJBr4Kcy1uWi-D-qUULdRF_dlYAUnKdFnpHqDNUE265I9VYf8BzTEM0bobA/exec";
+
+  // ================================
+  // ✅ LANGUAGE (CODE ONLY)
+  // You can change this later when you build a language switcher.
+  // Allowed: en, es, fr, zh
+  // ================================
+  let currentLang = "en";
+
+  // ================================
+  // ✅ HELPERS
+  // ================================
+  const $ = (id) => document.getElementById(id);
+
+  function getCheckedValues(name) {
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(
+      (x) => x.value
+    );
+  }
+
+  function getRadioValue(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : "";
+  }
+
+  // ================================
+  // ✅ COLLECT ALL FORM DATA
+  // ================================
+  function collectForm() {
+    return {
+      _lang: currentLang,
+
+      // A: Student info
+      studentName: $("studentName")?.value?.trim() || "",
+      grade: $("grade")?.value?.trim() || "",
+      school: $("school")?.value?.trim() || "",
+      teacher: $("teacher")?.value?.trim() || "",
+      todayDate: $("todayDate")?.value || "",
+      term: $("term")?.value?.trim() || "",
+
+      // B: Feelings + parent feel + summary
+      feelings: getCheckedValues("feelings"),
+      yearFeel: getRadioValue("yearFeel"),
+      yearSummary: $("yearSummary")?.value?.trim() || "",
+
+      // C: Academic snapshot table
+      academic: {
+        reading: {
+          grade: $("c_read_grade")?.value?.trim() || "",
+          feel: $("c_read_feel")?.value || "",
+          notes: $("c_read_notes")?.value?.trim() || "",
+        },
+        math: {
+          grade: $("c_math_grade")?.value?.trim() || "",
+          feel: $("c_math_feel")?.value || "",
+          notes: $("c_math_notes")?.value?.trim() || "",
+        },
+        science: {
+          grade: $("c_sci_grade")?.value?.trim() || "",
+          feel: $("c_sci_feel")?.value || "",
+          notes: $("c_sci_notes")?.value?.trim() || "",
+        },
+        social: {
+          grade: $("c_ss_grade")?.value?.trim() || "",
+          feel: $("c_ss_feel")?.value || "",
+          notes: $("c_ss_notes")?.value?.trim() || "",
+        },
+        other1: {
+          name: $("c_other1_name")?.value?.trim() || "",
+          grade: $("c_other1_grade")?.value?.trim() || "",
+          feel: $("c_other1_feel")?.value || "",
+          notes: $("c_other1_notes")?.value?.trim() || "",
+        },
+        other2: {
+          name: $("c_other2_name")?.value?.trim() || "",
+          grade: $("c_other2_grade")?.value?.trim() || "",
+          feel: $("c_other2_feel")?.value || "",
+          notes: $("c_other2_notes")?.value?.trim() || "",
+        },
+      },
+
+      // D: Behavior
+      schoolBeh: getCheckedValues("schoolBeh"),
+      homeBeh: getCheckedValues("homeBeh"),
+      behaviorNotes: $("behaviorNotes")?.value?.trim() || "",
+
+      // E: Strengths
+      strengthsAcademic: $("strengthsAcademic")?.value?.trim() || "",
+      strengthsPersonal: $("strengthsPersonal")?.value?.trim() || "",
+      wins: $("wins")?.value?.trim() || "",
+
+      // F: Challenges
+      concernsTop: $("concernsTop")?.value?.trim() || "",
+
+      // G: Questions
+      questions: {
+        q1: $("q1")?.value?.trim() || "",
+        q2: $("q2")?.value?.trim() || "",
+        q3: $("q3")?.value?.trim() || "",
+      },
+
+      // H: Priorities
+      priorityFocus: $("priorityFocus")?.value?.trim() || "",
+      supportNeeded: $("supportNeeded")?.value?.trim() || "",
+      signature: $("signature")?.value?.trim() || "",
+      signDate: $("signDate")?.value || "",
+
+      // metadata
+      _savedAt: new Date().toISOString(),
+    };
+  }
+
+  // ================================
+  // ✅ SEND TO GOOGLE SHEET (APPS SCRIPT)
+  // ================================
+  async function sendToGoogleSheet(snapshotData) {
+    const body = new URLSearchParams();
+    body.append("payload", JSON.stringify(snapshotData));
+
+    // optional simple columns (helps your sheet stay readable)
+    body.append("studentName", snapshotData.studentName || "");
+    body.append("grade", snapshotData.grade || "");
+    body.append("school", snapshotData.school || "");
+    body.append("teacher", snapshotData.teacher || "");
+    body.append("term", snapshotData.term || "");
+    body.append("todayDate", snapshotData.todayDate || "");
+    body.append("lang", snapshotData._lang || "en");
+
+    // no-cors prevents browser blocking on GitHub Pages
+    await fetch(SHEETS_WEBAPP_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body: body.toString(),
+    });
+  }
+
+  // ================================
+  // ✅ SAVE BUTTON: SEND → CONFIRMATION
+  // ================================
+  async function saveSnapshotAndGo() {
+    const data = collectForm();
+
+    if (!data.studentName || !data.grade) {
+      alert("Please enter Student Name and Grade before saving.");
+      return;
     }
 
-    h1 {
-      color: #2c3e50;
-      font-size: 2.5em;
-      margin-bottom: 10px;
+    // Optional: disable button to avoid double submits
+    const btn = $("btnSaveSnapshot");
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = "Saving… ⏳";
     }
 
-    p {
-      color: #34495e;
-      font-size: 1.2em;
-      margin-bottom: 30px;
+    try {
+      await sendToGoogleSheet(data);
+    } catch (err) {
+      console.error(err);
+      // even if sheet fails, still go to confirmation so parent isn't stuck
     }
 
-    button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1em;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+    // Redirect to confirmation page (lang code only)
+    window.location.href = `confirmation.html?lang=${encodeURIComponent(data._lang || "en")}`;
+  }
 
-    button:hover {
-      background-color: #2980b9;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.9em;
-      color: #7f8c8d;
-    }
-  </style>
-</head>
-<body>
-  <h1>Mid-Year Student Progress Snapshot</h1>
-  <p>Click the button below to view the student progress snapshot:</p>
-  <a href="https://automatemail.my.canva.site/copy-of-mid-year-student-progress-snapshot-template" target="_blank">
-    <button>View Snapshot</button>
-  </a>
-  <footer>
-    DEB's Learning Academy © 2026
-  </footer>
-</body>
-</html>
+  // ================================
+  // ✅ CONNECT BUTTON
+  // ================================
+  document.addEventListener("DOMContentLoaded", () => {
+    const saveBtn = $("btnSaveSnapshot");
+    if (saveBtn) saveBtn.addEventListener("click", saveSnapshotAndGo);
+  });
+</script>
