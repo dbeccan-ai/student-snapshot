@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Snapshot Confirmation | D.E.Bs Learning Academy</title>
-
   <style>
     :root{
       --bg:#6c67c9;
@@ -16,12 +15,11 @@
       --bar:#6b63c6;
       --bar-dark:#544db4;
       --accent:#ffde59;
-      --radius:12px;
-      --radius2:10px;
+      --radius:10px;
+      --radius2:8px;
       --shadow:0 18px 45px rgba(0,0,0,.22);
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
     }
-
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -31,42 +29,7 @@
       min-height:100vh;
       padding: 24px 12px 60px;
     }
-    .container{
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    /* top action bar */
-    .toolbar{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-bottom: 14px;
-    }
-    .btn{
-      border: 1px solid rgba(255,255,255,.25);
-      background: rgba(255,255,255,.12);
-      color:#fff;
-      padding: 10px 12px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 12px;
-      cursor:pointer;
-      transition: transform .08s ease, background .18s ease;
-      user-select:none;
-    }
-    .btn:hover{ background: rgba(255,255,255,.18); transform: translateY(-1px); }
-    .btn:active{ transform: translateY(0); }
-
-    .btn-yellow{
-      background: var(--accent);
-      border-color: rgba(0,0,0,.08);
-      color:#111827;
-    }
-    .btn-yellow:hover{ filter: brightness(0.98); }
-
-    /* report card */
+    .container{ max-width: 760px; margin: 0 auto; }
     .card{
       background: var(--card);
       border-radius: var(--radius);
@@ -74,38 +37,37 @@
       overflow:hidden;
       border: 1px solid rgba(0,0,0,.05);
     }
-
     .head{
-      padding: 20px 18px 12px;
+      padding: 18px 18px 10px;
       text-align:center;
-      border-bottom: 1px solid var(--line);
+      position: relative;
     }
-    .pill{
-      display:inline-flex;
-      align-items:center;
+    .lang{
+      position:absolute;
+      right: 12px;
+      top: 12px;
+      display:flex;
       gap:8px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(255,222,89,.25);
-      color:#1C2D5A;
-      font-weight: 900;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-    .head h1{
-      margin:0;
-      font-size: 20px;
-      font-weight: 1000;
-      letter-spacing: .2px;
-    }
-    .head .sub{
-      margin: 6px 0 0;
+      align-items:center;
       font-size: 12px;
       color: var(--muted);
-      font-style: italic;
     }
+    .lang select{
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      background:#fff;
+      cursor:pointer;
+    }
+    @media (max-width: 720px){
+      .lang{ position: static; justify-content: center; margin-bottom: 10px; }
+    }
+    .head h1{ margin:0; font-size: 18px; font-weight: 900; letter-spacing: .2px; }
+    .head .sub{ margin: 6px 0 0; font-size: 12px; color: var(--muted); }
 
-    .content{ padding: 14px; }
+    .content{ padding: 12px 14px 16px; }
 
     .section{
       border: 1px solid var(--line);
@@ -121,7 +83,7 @@
       padding: 10px 12px;
       background: linear-gradient(180deg, var(--bar) 0%, var(--bar-dark) 100%);
       color:#fff;
-      font-weight: 1000;
+      font-weight: 900;
       font-size: 13px;
       letter-spacing: .2px;
     }
@@ -133,387 +95,964 @@
       align-items:center;
       justify-content:center;
       font-size: 11px;
-      font-weight: 1000;
+      font-weight: 900;
     }
     .section-body{ padding: 12px; }
+    .row{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .kv{ min-width: 220px; flex:1; padding: 8px 10px; border:1px solid var(--line); border-radius: 8px; background:#fbfcff; }
+    .k{ font-size:11px; font-weight:900; color:#334155; margin-bottom:4px; }
+    .v{ font-size:12px; color:#0f172a; white-space:pre-wrap; }
+    .list{ margin:0; padding-left: 18px; }
+    .muted{ color: var(--muted); font-size: 12px; }
 
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px 14px;
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      padding: 0 14px 16px;
     }
-    @media (max-width: 760px){
-      .grid-2{ grid-template-columns: 1fr; }
-    }
-    .kv{
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 10px 10px;
-      background: #fbfcff;
-    }
-    .k{
-      font-size: 11px;
-      color: var(--muted);
+    .btn{
+      border:0;
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor:pointer;
       font-weight: 900;
-      margin-bottom: 5px;
-    }
-    .v{
-      font-size: 13px;
-      color: #0b1220;
-      font-weight: 700;
-      line-height: 1.35;
-      white-space: pre-wrap;
-    }
-    .v.muted{
-      font-weight: 600;
-      color: #64748b;
-    }
-
-    .hint{
-      font-size: 12px;
-      color: var(--muted);
-      margin: 0 0 10px;
-      line-height: 1.35;
-    }
-
-    .footer{
-      padding: 12px 14px 16px;
-      border-top: 1px solid var(--line);
-      background: #fbfcff;
-      text-align:center;
-      color: var(--muted);
       font-size: 12px;
     }
+    .btn.primary{
+      background: linear-gradient(180deg, var(--bar) 0%, var(--bar-dark) 100%);
+      color:#fff;
+    }
+    .btn.secondary{
+      background: #f1f5ff;
+      color:#1f2a44;
+      border: 1px solid var(--line);
+    }
+    .btn.accent{
+      background: var(--accent);
+      color:#111827;
+    }
+
+    a.link{ color:#1f2a44; font-weight:900; text-decoration:none; }
+    a.link:hover{ text-decoration:underline; }
 
     @media print{
       body{ background:#fff; padding:0; }
-      .toolbar{ display:none !important; }
+      .actions, .lang{ display:none !important; }
       .card{ box-shadow:none; border-radius:0; }
-      .footer{ border-top: 1px solid #ddd; }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-
-    <!-- ACTIONS -->
-    <div class="toolbar">
-      <button class="btn btn-yellow" id="btnPrint" type="button">🖨️ Print / Save as PDF</button>
-      <button class="btn" id="btnDownloadTXT" type="button">📄 Download TXT</button>
-      <button class="btn" id="btnDownloadHTML" type="button">🌐 Download HTML Report</button>
-      <button class="btn" id="btnDownloadJSON" type="button">🧾 Download JSON</button>
-      <a class="btn" id="btnBack" href="index.html" style="text-decoration:none; display:inline-flex; align-items:center;">↩️ Back to Form</a>
-    </div>
-
-    <!-- REPORT -->
-    <div class="card" id="reportCard">
+    <div class="card">
       <div class="head">
-        <div class="pill">✅ Snapshot Saved</div>
-        <h1>Mid-Year Student Snapshot</h1>
-        <div class="sub">D.E.Bs Learning Academy • “Unlocking Brilliance Through Learning”</div>
+        <div class="lang">
+          <span data-i18n="langLabel">Language</span>
+          <select id="langSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+
+        <h1 data-i18n="confirmTitle">✅ Snapshot Saved</h1>
+        <div class="sub" data-i18n="confirmSub">Your answers are saved on this device. Use the buttons below to Print/Save as PDF or Download.</div>
       </div>
 
-      <div class="content">
-        <p class="hint">
-          🎯 This page shows everything you entered.  
-          Use <b>Print / Save as PDF</b> to save it on your device (works on phones + computers).
-        </p>
-
-        <!-- STUDENT INFO -->
+      <div class="content" id="renderArea">
         <div class="section">
-          <div class="section-title"><span class="badge">A</span> 👧🏽📘 Student Information</div>
+          <div class="section-title"><span class="badge">A</span> <span data-i18n="secA">👧🏽📘 Student Information</span></div>
           <div class="section-body">
-            <div class="grid-2">
-              <div class="kv"><div class="k">Student Name</div><div class="v" id="studentName"></div></div>
-              <div class="kv"><div class="k">Grade</div><div class="v" id="grade"></div></div>
-              <div class="kv"><div class="k">School</div><div class="v" id="school"></div></div>
-              <div class="kv"><div class="k">Teacher</div><div class="v" id="teacher"></div></div>
-              <div class="kv"><div class="k">Period</div><div class="v" id="period"></div></div>
-              <div class="kv"><div class="k">Date</div><div class="v" id="date"></div></div>
+            <div class="row">
+              <div class="kv"><div class="k" data-i18n="studentName">Student Name:</div><div class="v" id="v_studentName">—</div></div>
+              <div class="kv"><div class="k" data-i18n="grade">Grade:</div><div class="v" id="v_grade">—</div></div>
+              <div class="kv"><div class="k" data-i18n="school">School:</div><div class="v" id="v_school">—</div></div>
+              <div class="kv"><div class="k" data-i18n="teacher">Homeroom / Main Teacher:</div><div class="v" id="v_teacher">—</div></div>
+              <div class="kv"><div class="k" data-i18n="todayDate">Today's Date:</div><div class="v" id="v_todayDate">—</div></div>
+              <div class="kv"><div class="k" data-i18n="term">Reporting Period (Term):</div><div class="v" id="v_term">—</div></div>
             </div>
           </div>
         </div>
 
-        <!-- YEAR DESCRIPTION -->
         <div class="section">
-          <div class="section-title"><span class="badge">B</span> 😊🏫 How School Feels Right Now</div>
+          <div class="section-title"><span class="badge">B</span> <span data-i18n="secB">😊🏫 How School Feels Right Now</span></div>
           <div class="section-body">
             <div class="kv">
-              <div class="k">📝 Describe the school year so far</div>
-              <div class="v" id="yearDescription"></div>
+              <div class="k" data-i18n="b1">How does my child seem to feel about school overall? (check all that fit)</div>
+              <div class="v" id="v_feelings">—</div>
+            </div>
+            <div style="height:10px;"></div>
+            <div class="kv">
+              <div class="k" data-i18n="b2">How do I feel about this school year so far?</div>
+              <div class="v" id="v_yearFeel">—</div>
+            </div>
+            <div style="height:10px;"></div>
+            <div class="kv">
+              <div class="k" data-i18n="yearSummaryLabel">📝 In one or two sentences, describe this school year so far:</div>
+              <div class="v" id="v_yearSummary">—</div>
             </div>
           </div>
         </div>
 
-        <!-- STRENGTHS -->
         <div class="section">
-          <div class="section-title"><span class="badge">C</span> 🌟 Strengths & Wins</div>
+          <div class="section-title"><span class="badge">C</span> <span data-i18n="secC">📊✏️ Quick Academic Snapshot</span></div>
           <div class="section-body">
-            <div class="kv">
-              <div class="k">✅ Strengths</div>
-              <div class="v" id="strengths"></div>
+            <div class="muted" data-i18n="cHint">📌 Use your report card, grading portal, or teacher comments to fill this in.</div>
+            <div class="kv"><div class="k" data-i18n="cReading">Reading / ELA</div><div class="v" id="v_reading">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="cMath">Math</div><div class="v" id="v_math">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="cScience">Science</div><div class="v" id="v_science">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="cSocial">Social Studies</div><div class="v" id="v_social">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" id="v_other1k">Other</div><div class="v" id="v_other1">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" id="v_other2k">Other</div><div class="v" id="v_other2">—</div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title"><span class="badge">D</span> <span data-i18n="secD">🎯🧠 Behavior, Focus & Organization</span></div>
+          <div class="section-body">
+            <div class="kv"><div class="k" data-i18n="dAtSchoolTitle">🏫 At school</div><div class="v" id="v_schoolBeh">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="dAtHomeTitle">🏠 At home during homework / study time</div><div class="v" id="v_homeBeh">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="behaviorNotesLabel">🗒️ Notes:</div><div class="v" id="v_behaviorNotes">—</div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title"><span class="badge">E</span> <span data-i18n="secE">🌟🏆 Strengths & Wins</span></div>
+          <div class="section-body">
+            <div class="kv"><div class="k" data-i18n="strengthsAcademic">📚 Academic / learning strengths:</div><div class="v" id="v_strengthsAcademic">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="strengthsPersonal">💛 Personal strengths (character, talents, social skills):</div><div class="v" id="v_strengthsPersonal">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="wins">🏆 Wins from this school year (big or small):</div><div class="v" id="v_wins">—</div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title"><span class="badge">F</span> <span data-i18n="secF">⚠️😣 Challenges & Worries</span></div>
+          <div class="section-body">
+            <div class="kv"><div class="k" data-i18n="concernsTop">⚠️ Top concerns (academic, emotional, or behavior):</div><div class="v" id="v_concernsTop">—</div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title"><span class="badge">G</span> <span data-i18n="secG">❓🗣️ Questions for the School / Teacher</span></div>
+          <div class="section-body">
+            <div class="kv"><div class="k">1️⃣</div><div class="v" id="v_q1">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k">2️⃣</div><div class="v" id="v_q2">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k">3️⃣</div><div class="v" id="v_q3">—</div></div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-title"><span class="badge">H</span> <span data-i18n="secH">🎯📅 Priority Focus for the Next 6–8 Weeks</span></div>
+          <div class="section-body">
+            <div class="kv"><div class="k" data-i18n="hTop">🎯 Top 1–3 focus areas (write here):</div><div class="v" id="v_priorityFocus">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="kv"><div class="k" data-i18n="supportNeeded">🤝 Support we need from school / D.E.Bs:</div><div class="v" id="v_supportNeeded">—</div></div>
+            <div style="height:10px;"></div>
+            <div class="row">
+              <div class="kv"><div class="k" data-i18n="signature">✍🏽 Parent/Guardian Signature:</div><div class="v" id="v_signature">—</div></div>
+              <div class="kv"><div class="k" data-i18n="signDate">📅 Date:</div><div class="v" id="v_signDate">—</div></div>
             </div>
           </div>
         </div>
 
-        <!-- CONCERNS -->
-        <div class="section">
-          <div class="section-title"><span class="badge">D</span> ⚠️ Areas of Concern</div>
+        <div class="section" id="missingBox" style="display:none;">
+          <div class="section-title"><span class="badge">!</span> <span data-i18n="missingTitle">⚠️ Nothing to display</span></div>
           <div class="section-body">
-            <div class="kv">
-              <div class="k">🚧 Concerns</div>
-              <div class="v" id="concerns"></div>
-            </div>
+            <div class="muted" data-i18n="missingBody">Go back to the Snapshot, fill it out, and click “Save Student Snapshot”.</div>
           </div>
         </div>
 
-        <!-- ATTENDANCE -->
-        <div class="section">
-          <div class="section-title"><span class="badge">E</span> 📅 Attendance Notes</div>
-          <div class="section-body">
-            <div class="kv">
-              <div class="k">🕒 Attendance comments</div>
-              <div class="v" id="attendance"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BEHAVIOR -->
-        <div class="section">
-          <div class="section-title"><span class="badge">F</span> 🎯 Behavior Notes</div>
-          <div class="section-body">
-            <div class="kv">
-              <div class="k">🧠 Behavior comments</div>
-              <div class="v" id="behavior"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- PARENT COMMENTS -->
-        <div class="section">
-          <div class="section-title"><span class="badge">G</span> 💬 Parent Comments</div>
-          <div class="section-body">
-            <div class="kv">
-              <div class="k">👩‍👧 Parent feedback</div>
-              <div class="v" id="parentComments"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ADDITIONAL NOTES -->
-        <div class="section">
-          <div class="section-title"><span class="badge">H</span> 🧾 Additional Notes</div>
-          <div class="section-body">
-            <div class="kv">
-              <div class="k">📝 Anything else?</div>
-              <div class="v" id="additionalNotes"></div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div class="footer">
-        💛 Tip: Save as PDF and keep it in your phone “Files” folder or email it to yourself for easy access.
+      <div class="actions">
+        <button class="btn primary" id="btnPrint" type="button" data-i18n="btnPrint">🖨️ Print / Save as PDF</button>
+        <button class="btn accent" id="btnDownloadHTML" type="button" data-i18n="btnHTML">⬇️ Download Report (HTML)</button>
+        <button class="btn secondary" id="btnDownloadTXT" type="button" data-i18n="btnTXT">⬇️ Download (TXT)</button>
+        <button class="btn secondary" id="btnDownloadJSON" type="button" data-i18n="btnJSON">⬇️ Download (JSON)</button>
+        <a class="link" href="index.html" data-i18n="btnBack">← Back to Snapshot</a>
       </div>
     </div>
   </div>
 
   <script>
-    // ---------- helpers ----------
-    const $ = (id) => document.getElementById(id);
+    // ================================
+    // ✅ SAME KEYS AS index.html
+    // ================================
+    const STORAGE_SNAPSHOT_KEY = "debs_midyear_last_snapshot_v1";
+    const STORAGE_DRAFT_KEY    = "debs_midyear_draft_v1";
+    const STORAGE_LANG_KEY     = "debs_midyear_lang_v1";
 
-    function escapeHTML(str){
-      return String(str ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
+    // ================================
+    // ✅ I18N (short set – same keys used in UI)
+    // ================================
+    const I18N = {
+      en: {
+        langLabel:"Language",
+        confirmTitle:"✅ Snapshot Saved",
+        confirmSub:"Your answers are saved on this device. Use the buttons below to Print/Save as PDF or Download.",
 
-    function valOrDash(v){
-      const s = (v ?? "").toString().trim();
-      return s.length ? s : "—";
-    }
+        secA:"👧🏽📘 Student Information",
+        secB:"😊🏫 How School Feels Right Now",
+        secC:"📊✏️ Quick Academic Snapshot",
+        secD:"🎯🧠 Behavior, Focus & Organization",
+        secE:"🌟🏆 Strengths & Wins",
+        secF:"⚠️😣 Challenges & Worries",
+        secG:"❓🗣️ Questions for the School / Teacher",
+        secH:"🎯📅 Priority Focus for the Next 6–8 Weeks",
 
-    // ---------- read data ----------
-    // Expected query params (from your form redirect):
-    // studentName, grade, school, teacher, period, date,
-    // yearDescription, strengths, concerns, attendance, behavior, parentComments, additionalNotes
-    function readFromQuery(){
-      const params = new URLSearchParams(window.location.search);
-      const obj = {};
-      for (const [k,v] of params.entries()){
-        obj[k] = v;
+        studentName:"Student Name:",
+        grade:"Grade:",
+        school:"School:",
+        teacher:"Homeroom / Main Teacher:",
+        todayDate:"Today's Date:",
+        term:"Reporting Period (Term):",
+        b1:"How does my child seem to feel about school overall? (check all that fit)",
+        b2:"How do I feel about this school year so far?",
+        yearSummaryLabel:"📝 In one or two sentences, describe this school year so far:",
+
+        cHint:"📌 Use your report card, grading portal, or teacher comments to fill this in.",
+        cReading:"Reading / ELA",
+        cMath:"Math",
+        cScience:"Science",
+        cSocial:"Social Studies",
+
+        dAtSchoolTitle:"🏫 At school",
+        dAtHomeTitle:"🏠 At home during homework / study time",
+        behaviorNotesLabel:"🗒️ Notes:",
+
+        strengthsAcademic:"📚 Academic / learning strengths:",
+        strengthsPersonal:"💛 Personal strengths (character, talents, social skills):",
+        wins:"🏆 Wins from this school year (big or small):",
+        concernsTop:"⚠️ Top concerns (academic, emotional, or behavior):",
+
+        hTop:"🎯 Top 1–3 focus areas (write here):",
+        supportNeeded:"🤝 Support we need from school / D.E.Bs:",
+        signature:"✍🏽 Parent/Guardian Signature:",
+        signDate:"📅 Date:",
+
+        btnPrint:"🖨️ Print / Save as PDF",
+        btnHTML:"⬇️ Download Report (HTML)",
+        btnTXT:"⬇️ Download (TXT)",
+        btnJSON:"⬇️ Download (JSON)",
+        btnBack:"← Back to Snapshot",
+
+        missingTitle:"⚠️ Nothing to display",
+        missingBody:"Go back to the Snapshot, fill it out, and click “Save Student Snapshot”.",
+
+        // value labels
+        map: {
+          feelings:{
+            excited:"😍 Excited most days",
+            fine:"😐 Fine / it’s just school",
+            anxious:"😟 Anxious / nervous",
+            bored:"😴 Bored / unmotivated",
+            overwhelmed:"😣 Overwhelmed / frustrated",
+            not_sure:"🤷🏽‍♀️ Not sure / mixed signals"
+          },
+          yearFeel:{
+            calm:"😌 Mostly calm and confident",
+            worried:"😬 Quietly worried",
+            stressed:"😰 Very stressed and unsure what to do",
+            mixed:"🎭 Mixed—some things are going great, others not at all"
+          },
+          howFeel:{
+            confident:"Confident ✅",
+            okay:"Okay 🙂",
+            concerned:"Concerned 😕",
+            not_sure:"Not sure 🤷🏽‍♀️"
+          },
+          schoolBeh:{
+            focused:"✅ Usually focused and on-task",
+            needs_reminders:"🔁 Needs reminders / redirection",
+            rushes:"⏩ Rushes through work",
+            not_finish:"🧩 Often doesn’t finish work",
+            calls_home:"📞 Behavior notes / calls home",
+            no_concerns:"👍 No major concerns reported"
+          },
+          homeBeh:{
+            starts_alone:"🚀 Starts on their own",
+            needs_reminders:"⏰ Needs reminders but will do it",
+            tears:"😭 Fights / tears are common",
+            negative_self_talk:"💔 Says “I’m dumb” or “I can’t do this”",
+            avoids:"🙈 Avoids homework or hides assignments"
+          }
+        }
+      },
+
+      es: {
+        langLabel:"Idioma",
+        confirmTitle:"✅ Resumen Guardado",
+        confirmSub:"Tus respuestas están guardadas en este dispositivo. Usa los botones para Imprimir/Guardar como PDF o Descargar.",
+
+        secA:"👧🏽📘 Información del Estudiante",
+        secB:"😊🏫 Cómo se Siente la Escuela Ahora",
+        secC:"📊✏️ Resumen Académico Rápido",
+        secD:"🎯🧠 Conducta, Enfoque y Organización",
+        secE:"🌟🏆 Fortalezas y Logros",
+        secF:"⚠️😣 Desafíos y Preocupaciones",
+        secG:"❓🗣️ Preguntas para la Escuela / Maestra(o)",
+        secH:"🎯📅 Prioridades para las Próximas 6–8 Semanas",
+
+        studentName:"Nombre del estudiante:",
+        grade:"Grado:",
+        school:"Escuela:",
+        teacher:"Maestro(a) principal:",
+        todayDate:"Fecha de hoy:",
+        term:"Período (trimestre):",
+        b1:"¿Cómo parece sentirse mi hijo/a sobre la escuela en general? (marca todas las que correspondan)",
+        b2:"¿Cómo me siento yo con este año escolar hasta ahora?",
+        yearSummaryLabel:"📝 En una o dos oraciones, describe este año escolar hasta ahora:",
+
+        cHint:"📌 Usa la boleta, el portal o comentarios del maestro.",
+        cReading:"Lectura / ELA",
+        cMath:"Matemáticas",
+        cScience:"Ciencias",
+        cSocial:"Estudios sociales",
+
+        dAtSchoolTitle:"🏫 En la escuela",
+        dAtHomeTitle:"🏠 En casa durante la tarea / estudio",
+        behaviorNotesLabel:"🗒️ Notas:",
+
+        strengthsAcademic:"📚 Fortalezas académicas / aprendizaje:",
+        strengthsPersonal:"💛 Fortalezas personales:",
+        wins:"🏆 Logros de este año:",
+        concernsTop:"⚠️ Principales preocupaciones:",
+
+        hTop:"🎯 1–3 prioridades:",
+        supportNeeded:"🤝 Apoyo que necesitamos:",
+        signature:"✍🏽 Firma del padre/madre/tutor:",
+        signDate:"📅 Fecha:",
+
+        btnPrint:"🖨️ Imprimir / Guardar como PDF",
+        btnHTML:"⬇️ Descargar informe (HTML)",
+        btnTXT:"⬇️ Descargar (TXT)",
+        btnJSON:"⬇️ Descargar (JSON)",
+        btnBack:"← Volver al formulario",
+
+        missingTitle:"⚠️ Nada que mostrar",
+        missingBody:"Vuelve al formulario, complétalo y haz clic en “Guardar”.",
+
+        map:{
+          feelings:{
+            excited:"😍 Emocionado/a la mayoría de los días",
+            fine:"😐 Bien / es solo la escuela",
+            anxious:"😟 Ansioso/a / nervioso/a",
+            bored:"😴 Aburrido/a / sin motivación",
+            overwhelmed:"😣 Abrumado/a / frustrado/a",
+            not_sure:"🤷🏽‍♀️ No estoy seguro/a / señales mixtas"
+          },
+          yearFeel:{
+            calm:"😌 Mayormente tranquilo/a y con confianza",
+            worried:"😬 Preocupación silenciosa",
+            stressed:"😰 Muy estresado/a y sin saber qué hacer",
+            mixed:"🎭 Mixto—algunas cosas van muy bien, otras no"
+          },
+          howFeel:{
+            confident:"Con confianza ✅",
+            okay:"Bien 🙂",
+            concerned:"Preocupado/a 😕",
+            not_sure:"No estoy seguro/a 🤷🏽‍♀️"
+          },
+          schoolBeh:{
+            focused:"✅ Usualmente enfocado/a",
+            needs_reminders:"🔁 Necesita recordatorios / redirección",
+            rushes:"⏩ Se apresura",
+            not_finish:"🧩 A menudo no termina",
+            calls_home:"📞 Notas de conducta / llamadas a casa",
+            no_concerns:"👍 Sin preocupaciones mayores"
+          },
+          homeBeh:{
+            starts_alone:"🚀 Empieza por su cuenta",
+            needs_reminders:"⏰ Necesita recordatorios pero lo hace",
+            tears:"😭 Peleas / lágrimas son comunes",
+            negative_self_talk:"💔 Dice “soy tonto/a” o “no puedo”",
+            avoids:"🙈 Evita la tarea u oculta tareas"
+          }
+        }
+      },
+
+      fr: {
+        langLabel:"Langue",
+        confirmTitle:"✅ Aperçu enregistré",
+        confirmSub:"Vos réponses sont enregistrées sur cet appareil. Utilisez les boutons pour Imprimer/Enregistrer en PDF ou Télécharger.",
+
+        secA:"👧🏽📘 Infos Élève",
+        secB:"😊🏫 Ressenti de l’École (Maintenant)",
+        secC:"📊✏️ Aperçu Académique Rapide",
+        secD:"🎯🧠 Comportement, Concentration & Organisation",
+        secE:"🌟🏆 Forces & Réussites",
+        secF:"⚠️😣 Défis & Inquiétudes",
+        secG:"❓🗣️ Questions pour l’École / l’Enseignant",
+        secH:"🎯📅 Priorités pour les 6–8 Prochaines Semaines",
+
+        studentName:"Nom de l’élève :",
+        grade:"Classe / Niveau :",
+        school:"École :",
+        teacher:"Enseignant principal :",
+        todayDate:"Date du jour :",
+        term:"Période (trimestre) :",
+        b1:"Comment mon enfant semble-t-il/elle se sentir par rapport à l’école ? (cochez tout ce qui s’applique)",
+        b2:"Comment est-ce que je me sens par rapport à cette année scolaire ?",
+        yearSummaryLabel:"📝 En une ou deux phrases, décrivez cette année scolaire jusqu’ici :",
+
+        cHint:"📌 Utilisez le bulletin, le portail, ou les commentaires.",
+        cReading:"Lecture / ELA",
+        cMath:"Maths",
+        cScience:"Sciences",
+        cSocial:"Sciences sociales",
+
+        dAtSchoolTitle:"🏫 À l’école",
+        dAtHomeTitle:"🏠 À la maison (devoirs / étude)",
+        behaviorNotesLabel:"🗒️ Notes :",
+
+        strengthsAcademic:"📚 Forces académiques :",
+        strengthsPersonal:"💛 Forces personnelles :",
+        wins:"🏆 Réussites :",
+        concernsTop:"⚠️ Principales inquiétudes :",
+
+        hTop:"🎯 1–3 priorités :",
+        supportNeeded:"🤝 Soutien nécessaire :",
+        signature:"✍🏽 Signature parent/tuteur :",
+        signDate:"📅 Date :",
+
+        btnPrint:"🖨️ Imprimer / Enregistrer en PDF",
+        btnHTML:"⬇️ Télécharger le rapport (HTML)",
+        btnTXT:"⬇️ Télécharger (TXT)",
+        btnJSON:"⬇️ Télécharger (JSON)",
+        btnBack:"← Retour au formulaire",
+
+        missingTitle:"⚠️ Rien à afficher",
+        missingBody:"Retournez au formulaire, remplissez-le et cliquez sur « Enregistrer ». ",
+
+        map:{
+          feelings:{
+            excited:"😍 Enthousiaste la plupart des jours",
+            fine:"😐 Ça va / « c’est l’école »",
+            anxious:"😟 Anxieux(se) / nerveux(se)",
+            bored:"😴 Ennuyé(e) / démotivé(e)",
+            overwhelmed:"😣 Débordé(e) / frustré(e)",
+            not_sure:"🤷🏽‍♀️ Pas sûr(e) / signaux mixtes"
+          },
+          yearFeel:{
+            calm:"😌 Plutôt calme et confiant(e)",
+            worried:"😬 Inquiet(ète) en silence",
+            stressed:"😰 Très stressé(e) et perdu(e)",
+            mixed:"🎭 Mitigé—certaines choses vont bien, d’autres non"
+          },
+          howFeel:{
+            confident:"Confiant(e) ✅",
+            okay:"Ça va 🙂",
+            concerned:"Inquiet(ète) 😕",
+            not_sure:"Pas sûr(e) 🤷🏽‍♀️"
+          },
+          schoolBeh:{
+            focused:"✅ Souvent concentré(e)",
+            needs_reminders:"🔁 Besoin de rappels / recadrage",
+            rushes:"⏩ Va trop vite",
+            not_finish:"🧩 Ne finit pas souvent",
+            calls_home:"📞 Notes / appels à la maison",
+            no_concerns:"👍 Aucune inquiétude majeure"
+          },
+          homeBeh:{
+            starts_alone:"🚀 Commence seul(e)",
+            needs_reminders:"⏰ Besoin de rappels mais le fait",
+            tears:"😭 Conflits / larmes fréquents",
+            negative_self_talk:"💔 Dit « je suis nul(le) » / « je n’y arrive pas »",
+            avoids:"🙈 Évite / cache des devoirs"
+          }
+        }
+      },
+
+      zh: {
+        langLabel:"语言",
+        confirmTitle:"✅ 已保存快照",
+        confirmSub:"你的回答已保存在此设备上。可打印/另存为PDF或下载。",
+
+        secA:"👧🏽📘 学生信息",
+        secB:"😊🏫 目前的上学感受",
+        secC:"📊✏️ 学业快速概览",
+        secD:"🎯🧠 行为、专注与组织",
+        secE:"🌟🏆 优势与成果",
+        secF:"⚠️😣 挑战与担忧",
+        secG:"❓🗣️ 给学校/老师的问题",
+        secH:"🎯📅 未来6–8周的优先重点",
+
+        studentName:"学生姓名：",
+        grade:"年级：",
+        school:"学校：",
+        teacher:"班主任/主要老师：",
+        todayDate:"今天日期：",
+        term:"学期/阶段：",
+        b1:"孩子总体对学校的感觉如何？（可多选）",
+        b2:"我对目前这个学年的感觉是？",
+        yearSummaryLabel:"📝 用一两句话描述目前这个学年：",
+
+        cHint:"📌 请参考成绩单、家长平台或老师反馈。",
+        cReading:"阅读/英语(ELA)",
+        cMath:"数学",
+        cScience:"科学",
+        cSocial:"社会学科",
+
+        dAtSchoolTitle:"🏫 在学校",
+        dAtHomeTitle:"🏠 在家写作业/学习时",
+        behaviorNotesLabel:"🗒️ 备注：",
+
+        strengthsAcademic:"📚 学业/学习优势：",
+        strengthsPersonal:"💛 个人优势：",
+        wins:"🏆 成就：",
+        concernsTop:"⚠️ 主要担忧：",
+
+        hTop:"🎯 1–3 个重点：",
+        supportNeeded:"🤝 需要的支持：",
+        signature:"✍🏽 家长/监护人签名：",
+        signDate:"📅 日期：",
+
+        btnPrint:"🖨️ 打印/另存为PDF",
+        btnHTML:"⬇️ 下载报告 (HTML)",
+        btnTXT:"⬇️ 下载 (TXT)",
+        btnJSON:"⬇️ 下载 (JSON)",
+        btnBack:"← 返回表单",
+
+        missingTitle:"⚠️ 没有可显示内容",
+        missingBody:"返回表单填写并点击“保存”。",
+
+        map:{
+          feelings:{
+            excited:"😍 大多数时候很期待",
+            fine:"😐 还好/就是上学",
+            anxious:"😟 焦虑/紧张",
+            bored:"😴 无聊/缺乏动力",
+            overwhelmed:"😣 压力大/沮丧",
+            not_sure:"🤷🏽‍♀️ 不确定/信号混杂"
+          },
+          yearFeel:{
+            calm:"😌 基本冷静且有信心",
+            worried:"😬 暗自担心",
+            stressed:"😰 很焦虑，不知道怎么办",
+            mixed:"🎭 复杂—有些很好，有些不太行"
+          },
+          howFeel:{
+            confident:"有信心 ✅",
+            okay:"还可以 🙂",
+            concerned:"担心 😕",
+            not_sure:"不确定 🤷🏽‍♀️"
+          },
+          schoolBeh:{
+            focused:"✅ 通常专注",
+            needs_reminders:"🔁 需要提醒/纠正",
+            rushes:"⏩ 做题太快",
+            not_finish:"🧩 经常做不完",
+            calls_home:"📞 行为记录/打电话回家",
+            no_concerns:"👍 没有重大问题"
+          },
+          homeBeh:{
+            starts_alone:"🚀 能自己开始",
+            needs_reminders:"⏰ 需要提醒但能做",
+            tears:"😭 争执/哭闹常见",
+            negative_self_talk:"💔 说“我很笨/我不行”",
+            avoids:"🙈 逃避作业/藏作业"
+          }
+        }
       }
-      return obj;
+    };
+
+    let currentLang = "en";
+    function t(key){
+      return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.en[key]) || key;
+    }
+    function label(group, code){
+      const m = (I18N[currentLang] && I18N[currentLang].map && I18N[currentLang].map[group]) || (I18N.en.map[group]) || {};
+      return m[code] || code || "—";
+    }
+    function applyI18n(){
+      document.documentElement.lang = currentLang;
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        el.innerHTML = t(el.dataset.i18n);
+      });
+      const langSel = document.getElementById("langSelect");
+      if(langSel) langSel.value = currentLang;
     }
 
-    // Fallback: if no query string, try localStorage draft (optional)
+    // ================================
+    // ✅ DATA LOADING
+    // ================================
+    function safeParse(raw){
+      try { return JSON.parse(raw); } catch { return null; }
+    }
+
     function readFromLocalStorage(){
-      // If your form page uses a key, add it here later.
-      // Keeping it simple + safe.
+      const raw = localStorage.getItem(STORAGE_SNAPSHOT_KEY) || localStorage.getItem(STORAGE_DRAFT_KEY);
+      return raw ? safeParse(raw) : null;
+    }
+
+    function readFromQuery(){
+      const q = Object.fromEntries(new URLSearchParams(window.location.search));
+      // If query only contains lang, treat it as "no data"
+      const hasRealData = ["studentName","grade","payload"].some(k => (q[k] && String(q[k]).trim().length));
+      if(!hasRealData) return null;
+
+      if(q.payload){
+        const parsed = safeParse(q.payload);
+        if(parsed) return parsed;
+      }
+      return q;
+    }
+
+    function getData(){
+      // Priority: localStorage (because index saves there), then query (if payload provided)
+      const fromLS = readFromLocalStorage();
+      if(fromLS) return fromLS;
+      const fromQ = readFromQuery();
+      if(fromQ) return fromQ;
       return null;
     }
 
-    const data = (() => {
-      const q = readFromQuery();
-      if (Object.keys(q).length) return q;
-      return readFromLocalStorage() || {};
-    })();
-
-    // ---------- render ----------
-    const fields = [
-      "studentName","grade","school","teacher","period","date",
-      "yearDescription","strengths","concerns","attendance","behavior",
-      "parentComments","additionalNotes"
-    ];
-
-    fields.forEach((key) => {
-      const el = $(key);
+    // ================================
+    // ✅ RENDER
+    // ================================
+    function setText(id, val){
+      const el = document.getElementById(id);
       if(!el) return;
-      const value = valOrDash(data[key]);
-      // preserve line breaks safely
-      el.innerHTML = escapeHTML(value);
-      if(value === "—") el.classList.add("muted");
-    });
-
-    // ---------- actions ----------
-    $("btnPrint").addEventListener("click", () => window.print());
-
-    function makeTextReport(){
-      const lines = [];
-      lines.push("MID-YEAR STUDENT SNAPSHOT");
-      lines.push("D.E.Bs Learning Academy");
-      lines.push("=====================================");
-      lines.push("");
-      lines.push("A) Student Information");
-      lines.push(`Student Name: ${valOrDash(data.studentName)}`);
-      lines.push(`Grade: ${valOrDash(data.grade)}`);
-      lines.push(`School: ${valOrDash(data.school)}`);
-      lines.push(`Teacher: ${valOrDash(data.teacher)}`);
-      lines.push(`Period: ${valOrDash(data.period)}`);
-      lines.push(`Date: ${valOrDash(data.date)}`);
-      lines.push("");
-      lines.push("B) How School Feels Right Now");
-      lines.push(valOrDash(data.yearDescription));
-      lines.push("");
-      lines.push("C) Strengths & Wins");
-      lines.push(valOrDash(data.strengths));
-      lines.push("");
-      lines.push("D) Areas of Concern");
-      lines.push(valOrDash(data.concerns));
-      lines.push("");
-      lines.push("E) Attendance Notes");
-      lines.push(valOrDash(data.attendance));
-      lines.push("");
-      lines.push("F) Behavior Notes");
-      lines.push(valOrDash(data.behavior));
-      lines.push("");
-      lines.push("G) Parent Comments");
-      lines.push(valOrDash(data.parentComments));
-      lines.push("");
-      lines.push("H) Additional Notes");
-      lines.push(valOrDash(data.additionalNotes));
-      lines.push("");
-      return lines.join("\n");
+      el.textContent = (val && String(val).trim().length) ? String(val) : "—";
     }
 
-    function downloadBlob(content, filename, type){
-      const blob = new Blob([content], { type });
+    function renderAcademic(a){
+      if(!a) return { grade:"", feel:"", notes:"" };
+      const grade = a.grade || "";
+      const feel = a.feel ? label("howFeel", a.feel) : "";
+      const notes = a.notes || "";
+      return [grade && ("Grade/Level: " + grade), feel && ("How I Feel: " + feel), notes && ("Notes: " + notes)].filter(Boolean).join("\n");
+    }
+
+    function render(){
+      const data = getData();
+      if(!data){
+        document.getElementById("missingBox").style.display = "block";
+        return;
+      }
+
+      // Update language if saved
+      currentLang = new URLSearchParams(window.location.search).get("lang") || data._lang || localStorage.getItem(STORAGE_LANG_KEY) || "en";
+      if(!I18N[currentLang]) currentLang = "en";
+      applyI18n();
+
+      setText("v_studentName", data.studentName);
+      setText("v_grade", data.grade);
+      setText("v_school", data.school);
+      setText("v_teacher", data.teacher);
+      setText("v_todayDate", data.todayDate);
+      setText("v_term", data.term);
+
+      // Feelings
+      const feelingsArr = Array.isArray(data.feelings) ? data.feelings : [];
+      const feelText = feelingsArr.length ? feelingsArr.map(c=> "• " + label("feelings", c)).join("\n") : "—";
+      setText("v_feelings", feelText);
+
+      setText("v_yearFeel", data.yearFeel ? label("yearFeel", data.yearFeel) : "");
+      setText("v_yearSummary", data.yearSummary);
+
+      // Academic
+      const ac = data.academic || {};
+      setText("v_reading", renderAcademic(ac.reading));
+      setText("v_math", renderAcademic(ac.math));
+      setText("v_science", renderAcademic(ac.science));
+      setText("v_social", renderAcademic(ac.social));
+
+      const other1Name = (ac.other1 && ac.other1.name) ? ac.other1.name : "";
+      document.getElementById("v_other1k").textContent = other1Name ? other1Name : "Other";
+      setText("v_other1", renderAcademic(ac.other1));
+
+      const other2Name = (ac.other2 && ac.other2.name) ? ac.other2.name : "";
+      document.getElementById("v_other2k").textContent = other2Name ? other2Name : "Other";
+      setText("v_other2", renderAcademic(ac.other2));
+
+      // Behavior
+      const sb = Array.isArray(data.schoolBeh) ? data.schoolBeh : [];
+      const hb = Array.isArray(data.homeBeh) ? data.homeBeh : [];
+
+      setText("v_schoolBeh", sb.length ? sb.map(c=>"• "+label("schoolBeh", c)).join("\n") : "—");
+      setText("v_homeBeh", hb.length ? hb.map(c=>"• "+label("homeBeh", c)).join("\n") : "—");
+      setText("v_behaviorNotes", data.behaviorNotes);
+
+      // Strengths, concerns
+      setText("v_strengthsAcademic", data.strengthsAcademic);
+      setText("v_strengthsPersonal", data.strengthsPersonal);
+      setText("v_wins", data.wins);
+      setText("v_concernsTop", data.concernsTop);
+
+      // Questions
+      setText("v_q1", data.questions && data.questions.q1);
+      setText("v_q2", data.questions && data.questions.q2);
+      setText("v_q3", data.questions && data.questions.q3);
+
+      // Priority + signature
+      setText("v_priorityFocus", data.priorityFocus);
+      setText("v_supportNeeded", data.supportNeeded);
+      setText("v_signature", data.signature);
+      setText("v_signDate", data.signDate);
+    }
+
+    // ================================
+    // ✅ DOWNLOADS
+    // ================================
+    function fileSafeName(s){
+      return (s || "snapshot").toString().trim().replace(/[^\w\-]+/g,"_").slice(0,60) || "snapshot";
+    }
+    function downloadBlob(filename, mime, content){
+      const blob = new Blob([content], { type: mime });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
       a.download = filename;
-      document.body.appendChild(a);
       a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
+      setTimeout(()=>URL.revokeObjectURL(url), 800);
     }
 
-    function safeFileName(){
-      const name = (data.studentName || "student").toString().trim().replace(/[^\w\s-]/g,"").replace(/\s+/g,"_");
-      const grade = (data.grade || "").toString().trim().replace(/[^\w\s-]/g,"").replace(/\s+/g,"_");
-      return `${name}${grade ? "_Grade_" + grade : ""}`;
+    function getCurrentData(){
+      return getData() || {};
     }
 
-    $("btnDownloadTXT").addEventListener("click", () => {
-      downloadBlob(makeTextReport(), `snapshot_${safeFileName()}.txt`, "text/plain;charset=utf-8");
-    });
+    function buildTxtReport(d){
+      const lines = [];
+      lines.push("MID-YEAR STUDENT SNAPSHOT");
+      lines.push("D.E.Bs Learning Academy");
+      lines.push("----------------------------------------");
+      lines.push(`Student: ${d.studentName||""}`);
+      lines.push(`Grade: ${d.grade||""}`);
+      lines.push(`School: ${d.school||""}`);
+      lines.push(`Teacher: ${d.teacher||""}`);
+      lines.push(`Date: ${d.todayDate||""}`);
+      lines.push(`Term: ${d.term||""}`);
+      lines.push("");
+      lines.push("B) HOW SCHOOL FEELS");
+      const feelings = (d.feelings||[]).map(c=>"- "+label("feelings", c)).join("\n");
+      lines.push("Child feelings:\n"+(feelings||""));
+      lines.push("Parent year feel: "+(d.yearFeel?label("yearFeel", d.yearFeel):""));
+      lines.push("Summary:\n"+(d.yearSummary||""));
+      lines.push("");
+      lines.push("C) ACADEMICS");
+      function acLine(name, obj){
+        if(!obj) return;
+        const parts = [];
+        if(obj.grade) parts.push("grade/level: "+obj.grade);
+        if(obj.feel) parts.push("feel: "+label("howFeel", obj.feel));
+        if(obj.notes) parts.push("notes: "+obj.notes);
+        lines.push(name+": "+parts.join(" | "));
+      }
+      const a = d.academic||{};
+      acLine("Reading/ELA", a.reading);
+      acLine("Math", a.math);
+      acLine("Science", a.science);
+      acLine("Social Studies", a.social);
+      if(a.other1 && (a.other1.name||a.other1.grade||a.other1.feel||a.other1.notes)) acLine(a.other1.name||"Other 1", a.other1);
+      if(a.other2 && (a.other2.name||a.other2.grade||a.other2.feel||a.other2.notes)) acLine(a.other2.name||"Other 2", a.other2);
 
-    $("btnDownloadJSON").addEventListener("click", () => {
-      const obj = {};
-      for(const key of fields) obj[key] = data[key] || "";
-      downloadBlob(JSON.stringify(obj, null, 2), `snapshot_${safeFileName()}.json`, "application/json;charset=utf-8");
-    });
+      lines.push("");
+      lines.push("D) BEHAVIOR");
+      const sb = (d.schoolBeh||[]).map(c=>"- "+label("schoolBeh", c)).join("\n");
+      const hb = (d.homeBeh||[]).map(c=>"- "+label("homeBeh", c)).join("\n");
+      lines.push("At school:\n"+sb);
+      lines.push("At home:\n"+hb);
+      lines.push("Notes:\n"+(d.behaviorNotes||""));
 
-    $("btnDownloadHTML").addEventListener("click", () => {
-      // Create a clean standalone report HTML
-      const reportHTML = `
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mid-Year Snapshot Report</title>
+      lines.push("");
+      lines.push("E) STRENGTHS & WINS");
+      lines.push("Academic strengths:\n"+(d.strengthsAcademic||""));
+      lines.push("Personal strengths:\n"+(d.strengthsPersonal||""));
+      lines.push("Wins:\n"+(d.wins||""));
+
+      lines.push("");
+      lines.push("F) CHALLENGES");
+      lines.push(d.concernsTop||"");
+
+      lines.push("");
+      lines.push("G) QUESTIONS");
+      lines.push("1) "+((d.questions&&d.questions.q1)||""));
+      lines.push("2) "+((d.questions&&d.questions.q2)||""));
+      lines.push("3) "+((d.questions&&d.questions.q3)||""));
+
+      lines.push("");
+      lines.push("H) PRIORITY FOCUS");
+      lines.push("Focus:\n"+(d.priorityFocus||""));
+      lines.push("Support needed:\n"+(d.supportNeeded||""));
+      lines.push("Signature: "+(d.signature||""));
+      lines.push("Sign date: "+(d.signDate||""));
+
+      return lines.join("\n");
+    }
+
+    function buildHtmlReport(d){
+      const esc = (s)=>String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      const list = (arr, grp)=> (arr && arr.length) ? ("<ul>"+arr.map(c=>"<li>"+esc(label(grp,c))+"</li>").join("")+"</ul>") : "<p>—</p>";
+      const ac = d.academic||{};
+      const acRow = (title, obj)=> {
+        if(!obj) obj = {};
+        const feel = obj.feel ? label("howFeel", obj.feel) : "";
+        return `<tr><td>${esc(title)}</td><td>${esc(obj.grade||"")}</td><td>${esc(feel)}</td><td>${esc(obj.notes||"")}</td></tr>`;
+      };
+      const other1Title = (ac.other1 && ac.other1.name) ? ac.other1.name : "Other";
+      const other2Title = (ac.other2 && ac.other2.name) ? ac.other2.name : "Other";
+
+      return `<!doctype html>
+<html lang="${esc(d._lang||"en")}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mid-Year Student Snapshot Report</title>
 <style>
-  body{font-family: Arial, sans-serif; background:#f6f7fb; margin:0; padding:24px;}
-  .wrap{max-width:860px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;}
-  .h{padding:16px 18px;border-bottom:1px solid #e5e7eb;}
-  .h h1{margin:0;font-size:18px;}
-  .h p{margin:6px 0 0;color:#475569;font-style:italic;}
-  .sec{padding:14px 18px;border-bottom:1px solid #eef2ff;}
-  .sec h2{margin:0 0 8px;font-size:14px;}
-  .box{white-space:pre-wrap;line-height:1.45;color:#0f172a;}
-  .muted{color:#64748b;}
-</style></head><body>
-<div class="wrap">
-  <div class="h">
-    <h1>Mid-Year Student Snapshot</h1>
-    <p>D.E.Bs Learning Academy • Unlocking Brilliance Through Learning</p>
-  </div>
-
-  <div class="sec"><h2>👧🏽📘 Student Information</h2>
-    <div class="box">
-Student Name: ${escapeHTML(valOrDash(data.studentName))}
-Grade: ${escapeHTML(valOrDash(data.grade))}
-School: ${escapeHTML(valOrDash(data.school))}
-Teacher: ${escapeHTML(valOrDash(data.teacher))}
-Period: ${escapeHTML(valOrDash(data.period))}
-Date: ${escapeHTML(valOrDash(data.date))}
+  body{font-family:Arial,system-ui,sans-serif;margin:0;padding:24px;background:#f3f4ff;color:#111827;}
+  .card{max-width:820px;margin:0 auto;background:#fff;border:1px solid #e5e7ff;border-radius:12px;overflow:hidden;}
+  .head{padding:18px 18px 10px;text-align:center;border-bottom:3px solid #6b63c6;}
+  .head h1{margin:0;font-size:20px;}
+  .sub{color:#475569;font-size:12px;margin-top:6px;}
+  .sec{padding:14px 16px;border-top:1px solid #e5e7ff;}
+  .sec h2{margin:0 0 10px;font-size:14px;background:#6b63c6;color:#fff;padding:8px 10px;border-radius:8px;}
+  .kv{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .box{border:1px solid #dbe4f2;border-radius:10px;background:#fbfcff;padding:10px;}
+  .k{font-weight:800;font-size:11px;color:#334155;margin-bottom:4px;}
+  .v{white-space:pre-wrap;font-size:12px;}
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  th,td{border:1px solid #dbe4f2;padding:8px;vertical-align:top;}
+  th{background:#f6f8ff;text-align:left;}
+  ul{margin:6px 0 0 18px;}
+</style></head>
+<body>
+  <div class="card">
+    <div class="head">
+      <h1>Mid-Year Student Snapshot</h1>
+      <div class="sub">D.E.Bs Learning Academy</div>
     </div>
-  </div>
 
-  <div class="sec"><h2>😊🏫 How School Feels Right Now</h2>
-    <div class="box">${escapeHTML(valOrDash(data.yearDescription))}</div>
-  </div>
+    <div class="sec">
+      <h2>A) Student Information</h2>
+      <div class="kv">
+        <div class="box"><div class="k">Student</div><div class="v">${esc(d.studentName||"")}</div></div>
+        <div class="box"><div class="k">Grade</div><div class="v">${esc(d.grade||"")}</div></div>
+        <div class="box"><div class="k">School</div><div class="v">${esc(d.school||"")}</div></div>
+        <div class="box"><div class="k">Teacher</div><div class="v">${esc(d.teacher||"")}</div></div>
+        <div class="box"><div class="k">Date</div><div class="v">${esc(d.todayDate||"")}</div></div>
+        <div class="box"><div class="k">Term</div><div class="v">${esc(d.term||"")}</div></div>
+      </div>
+    </div>
 
-  <div class="sec"><h2>🌟 Strengths & Wins</h2>
-    <div class="box">${escapeHTML(valOrDash(data.strengths))}</div>
-  </div>
+    <div class="sec">
+      <h2>B) How School Feels</h2>
+      <div class="box"><div class="k">Child feelings</div>${list(d.feelings||[],"feelings")}</div><br/>
+      <div class="box"><div class="k">Parent feel</div><div class="v">${esc(d.yearFeel?label("yearFeel",d.yearFeel):"")}</div></div><br/>
+      <div class="box"><div class="k">Summary</div><div class="v">${esc(d.yearSummary||"")}</div></div>
+    </div>
 
-  <div class="sec"><h2>⚠️ Areas of Concern</h2>
-    <div class="box">${escapeHTML(valOrDash(data.concerns))}</div>
-  </div>
+    <div class="sec">
+      <h2>C) Academics</h2>
+      <table>
+        <thead><tr><th>Subject</th><th>Grade/Level</th><th>How I Feel</th><th>Notes</th></tr></thead>
+        <tbody>
+          ${acRow("Reading/ELA", ac.reading)}
+          ${acRow("Math", ac.math)}
+          ${acRow("Science", ac.science)}
+          ${acRow("Social Studies", ac.social)}
+          ${acRow(other1Title, ac.other1)}
+          ${acRow(other2Title, ac.other2)}
+        </tbody>
+      </table>
+    </div>
 
-  <div class="sec"><h2>📅 Attendance Notes</h2>
-    <div class="box">${escapeHTML(valOrDash(data.attendance))}</div>
-  </div>
+    <div class="sec">
+      <h2>D) Behavior</h2>
+      <div class="box"><div class="k">At school</div>${list(d.schoolBeh||[],"schoolBeh")}</div><br/>
+      <div class="box"><div class="k">At home</div>${list(d.homeBeh||[],"homeBeh")}</div><br/>
+      <div class="box"><div class="k">Notes</div><div class="v">${esc(d.behaviorNotes||"")}</div></div>
+    </div>
 
-  <div class="sec"><h2>🎯 Behavior Notes</h2>
-    <div class="box">${escapeHTML(valOrDash(data.behavior))}</div>
-  </div>
+    <div class="sec">
+      <h2>E) Strengths & Wins</h2>
+      <div class="box"><div class="k">Academic strengths</div><div class="v">${esc(d.strengthsAcademic||"")}</div></div><br/>
+      <div class="box"><div class="k">Personal strengths</div><div class="v">${esc(d.strengthsPersonal||"")}</div></div><br/>
+      <div class="box"><div class="k">Wins</div><div class="v">${esc(d.wins||"")}</div></div>
+    </div>
 
-  <div class="sec"><h2>💬 Parent Comments</h2>
-    <div class="box">${escapeHTML(valOrDash(data.parentComments))}</div>
-  </div>
+    <div class="sec">
+      <h2>F) Challenges</h2>
+      <div class="box"><div class="v">${esc(d.concernsTop||"")}</div></div>
+    </div>
 
-  <div class="sec"><h2>🧾 Additional Notes</h2>
-    <div class="box">${escapeHTML(valOrDash(data.additionalNotes))}</div>
-  </div>
-</div>
-</body></html>
-      `.trim();
+    <div class="sec">
+      <h2>G) Questions</h2>
+      <div class="box"><div class="v">1) ${esc((d.questions&&d.questions.q1)||"")}\n2) ${esc((d.questions&&d.questions.q2)||"")}\n3) ${esc((d.questions&&d.questions.q3)||"")}</div></div>
+    </div>
 
-      downloadBlob(reportHTML, `snapshot_${safeFileName()}.html`, "text/html;charset=utf-8");
-    });
+    <div class="sec">
+      <h2>H) Priority Focus</h2>
+      <div class="box"><div class="k">Focus</div><div class="v">${esc(d.priorityFocus||"")}</div></div><br/>
+      <div class="box"><div class="k">Support needed</div><div class="v">${esc(d.supportNeeded||"")}</div></div><br/>
+      <div class="kv">
+        <div class="box"><div class="k">Signature</div><div class="v">${esc(d.signature||"")}</div></div>
+        <div class="box"><div class="k">Date</div><div class="v">${esc(d.signDate||"")}</div></div>
+      </div>
+    </div>
+
+  </div>
+</body></html>`;
+    }
+
+    // ================================
+    // ✅ ACTIONS
+    // ================================
+    function init(){
+      // Language init
+      const urlLang = new URLSearchParams(window.location.search).get("lang");
+      const stored = localStorage.getItem(STORAGE_LANG_KEY);
+      currentLang = urlLang || stored || "en";
+      if(!I18N[currentLang]) currentLang = "en";
+      applyI18n();
+
+      // Render
+      render();
+
+      // Language switcher
+      const langSel = document.getElementById("langSelect");
+      if(langSel){
+        langSel.addEventListener("change", ()=>{
+          currentLang = langSel.value;
+          localStorage.setItem(STORAGE_LANG_KEY, currentLang);
+          applyI18n();
+          render(); // re-render value labels
+        });
+      }
+
+      document.getElementById("btnPrint").addEventListener("click", ()=> window.print());
+
+      document.getElementById("btnDownloadJSON").addEventListener("click", ()=>{
+        const d = getCurrentData();
+        const name = fileSafeName(d.studentName || "student");
+        downloadBlob(`snapshot_${name}.json`, "application/json", JSON.stringify(d, null, 2));
+      });
+
+      document.getElementById("btnDownloadTXT").addEventListener("click", ()=>{
+        const d = getCurrentData();
+        const name = fileSafeName(d.studentName || "student");
+        downloadBlob(`snapshot_${name}.txt`, "text/plain", buildTxtReport(d));
+      });
+
+      document.getElementById("btnDownloadHTML").addEventListener("click", ()=>{
+        const d = getCurrentData();
+        const name = fileSafeName(d.studentName || "student");
+        downloadBlob(`snapshot_${name}.html`, "text/html", buildHtmlReport(d));
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
   </script>
 </body>
 </html>

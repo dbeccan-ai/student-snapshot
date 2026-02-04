@@ -4,25 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mid-Year Student Snapshot | D.E.Bs Learning Academy</title>
-
   <style>
     :root{
-      /* DEBs-ish palette */
-      --bg:#0b5cff;          /* electric blue */
-      --bg-dark:#083fb2;
+      --bg:#6c67c9;
+      --bg-dark:#5e58be;
       --card:#ffffff;
       --ink:#0f172a;
       --muted:#475569;
       --line:#dbe4f2;
-      --bar:#1239ff;         /* section bar */
-      --bar-dark:#0b2bd6;
-      --accent:#ffde59;      /* DEBs yellow */
-      --radius:12px;
-      --radius2:10px;
+      --bar:#6b63c6;
+      --bar-dark:#544db4;
+      --accent:#ffde59;
+      --radius:10px;
+      --radius2:8px;
       --shadow:0 18px 45px rgba(0,0,0,.22);
       --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
     }
-
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -30,69 +27,9 @@
       background: linear-gradient(180deg, var(--bg) 0%, var(--bg-dark) 100%);
       color:var(--ink);
       min-height:100vh;
-      padding: 22px 12px 60px;
+      padding: 24px 12px 60px;
     }
-
-    .container{
-      max-width: 820px;
-      margin: 0 auto;
-    }
-
-    /* Top mini header (NOT the old toolbar) */
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: 14px;
-      color:#fff;
-      flex-wrap:wrap;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:900;
-      letter-spacing:.2px;
-    }
-    .brand-badge{
-      width:34px;height:34px;
-      border-radius:10px;
-      background: var(--accent);
-      color:#111827;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:1000;
-    }
-    .topbar small{
-      opacity:.9;
-      font-weight:700;
-    }
-
-    .langwrap{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-    .langlabel{
-      font-weight:900;
-      font-size:12px;
-      opacity:.95;
-    }
-    #langSelect{
-      background: rgba(255,255,255,.14);
-      color:#fff;
-      border: 1px solid rgba(255,255,255,.25);
-      padding: 10px 12px;
-      border-radius:999px;
-      font-weight:900;
-      cursor:pointer;
-      outline:none;
-    }
-    #langSelect option{ color:#111; }
-
+    .container{ max-width: 760px; margin: 0 auto; }
     .card{
       background: var(--card);
       border-radius: var(--radius);
@@ -100,30 +37,34 @@
       overflow:hidden;
       border: 1px solid rgba(0,0,0,.05);
     }
-
     .head{
-      padding: 18px 18px 12px;
+      padding: 18px 18px 10px;
       text-align:center;
-      border-bottom: 1px solid rgba(2,6,23,.06);
       position: relative;
     }
-    .head h1{
-      margin:0;
-      font-size: 18px;
-      font-weight: 1000;
-      letter-spacing: .2px;
-    }
-    .head .sub{
-      margin: 6px 0 0;
+    .lang{
+      position:absolute;
+      right: 12px;
+      top: 12px;
+      display:flex;
+      gap:8px;
+      align-items:center;
       font-size: 12px;
       color: var(--muted);
-      font-style: italic;
-      font-weight: 700;
     }
+    .lang select{
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-weight: 800;
+      font-size: 12px;
+      background:#fff;
+      cursor:pointer;
+    }
+    .head h1{ margin:0; font-size: 18px; font-weight: 900; letter-spacing: .2px; }
+    .head .sub{ margin: 4px 0 0; font-size: 11px; color: var(--muted); font-style: italic; }
 
-    .content{
-      padding: 12px 14px 16px;
-    }
+    .content{ padding: 12px 14px 16px; }
 
     .section{
       border: 1px solid var(--line);
@@ -139,228 +80,139 @@
       padding: 10px 12px;
       background: linear-gradient(180deg, var(--bar) 0%, var(--bar-dark) 100%);
       color:#fff;
-      font-weight: 1000;
+      font-weight: 900;
       font-size: 13px;
       letter-spacing: .2px;
     }
     .badge{
-      width:20px;height:20px;
-      border-radius:6px;
+      width:18px;height:18px;
+      border-radius:4px;
       background: rgba(255,255,255,.18);
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      font-size: 12px;
-      font-weight: 1000;
-    }
-    .section-body{
-      padding: 12px;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 720px){
-      .grid-2{ grid-template-columns: 1fr; }
-      .topbar{ justify-content:center; }
-      .langwrap{ justify-content:center; width:100%; }
-    }
-
-    label{
-      display:block;
       font-size: 11px;
-      font-weight: 1000;
-      color: #1f2937;
-      margin: 0 0 6px;
+      font-weight: 900;
     }
+    .section-body{ padding: 12px; }
 
-    input[type="text"],
-    input[type="date"],
-    textarea,
-    select{
+    .grid-2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 720px){ .grid-2{ grid-template-columns: 1fr; } .lang{ position: static; justify-content: center; margin-bottom: 10px; } }
+
+    label{ display:block; font-size: 11px; font-weight: 900; color: #1f2937; margin: 0 0 6px; }
+    input[type="text"], input[type="date"], textarea, select{
       width:100%;
       padding: 10px 10px;
       border: 1.5px solid var(--line);
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 12px;
       outline:none;
       transition: box-shadow .15s ease, border-color .15s ease;
       background:#fff;
     }
     input:focus, textarea:focus, select:focus{
-      border-color: rgba(18,57,255,.55);
-      box-shadow: 0 0 0 4px rgba(18,57,255,.14);
+      border-color: rgba(107,99,198,.6);
+      box-shadow: 0 0 0 4px rgba(107,99,198,.14);
     }
     textarea{ min-height: 92px; resize: vertical; }
 
-    .hint{
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: 8px;
-      line-height: 1.35;
-      font-weight:700;
+    .hint{ font-size: 11px; color: var(--muted); margin-bottom: 8px; line-height: 1.35; }
+    .checklist{ display:grid; grid-template-columns: 1fr; gap:8px; padding-top: 2px; }
+    .check-item, .radio-item{
+      display:flex; align-items:flex-start; gap:8px; font-size: 12px; color: #111827;
     }
+    .check-item input, .radio-item input{ margin-top:2px; }
+    .radio-group{ display:grid; gap:8px; margin-top: 4px; }
 
-    .checklist{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:8px;
-      padding-top: 2px;
-    }
-    .check-item{
-      display:flex;
-      align-items:flex-start;
-      gap:8px;
-      font-size: 12px;
-      color: #111827;
-      font-weight:800;
-    }
-    .check-item input{ margin-top:2px; }
-
-    .radio-group{
-      display:grid;
-      gap:8px;
-      margin-top: 4px;
-    }
-    .radio-item{
-      display:flex;
-      gap:8px;
-      align-items:flex-start;
-      font-size: 12px;
-      font-weight:800;
-    }
-    .radio-item input{ margin-top:2px; }
-
-    table{
-      width:100%;
-      border-collapse: collapse;
-      font-size: 12px;
-      table-layout: fixed;
-    }
-    th, td{
-      border: 1px solid var(--line);
-      padding: 8px;
-      vertical-align: top;
-    }
-    th{
-      text-align:left;
-      background: #f6f8ff;
-      font-size: 11px;
-      color: #24324a;
-      font-weight: 1000;
-    }
+    table{ width:100%; border-collapse: collapse; font-size: 12px; table-layout: fixed; }
+    th, td{ border: 1px solid var(--line); padding: 8px; vertical-align: top; }
+    th{ text-align:left; background: #f6f8ff; font-size: 11px; color: #24324a; font-weight: 900; }
     td .mini-input{
       width:100%;
       padding: 8px;
       border: 1.5px solid var(--line);
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 12px;
     }
     td .mini-input:focus{
-      border-color: rgba(18,57,255,.55);
-      box-shadow: 0 0 0 4px rgba(18,57,255,.14);
+      border-color: rgba(107,99,198,.6);
+      box-shadow: 0 0 0 4px rgba(107,99,198,.14);
       outline:none;
     }
 
-    .savebar{
-      padding: 0 14px 16px;
-    }
+    .savebar{ padding: 0 14px 16px; }
     .savebtn{
       width:100%;
       border:0;
-      border-radius: 10px;
-      background: linear-gradient(180deg, var(--accent) 0%, #f2c800 100%);
-      color:#111827;
-      font-weight: 1000;
-      padding: 13px 14px;
+      border-radius: 6px;
+      background: linear-gradient(180deg, var(--bar) 0%, var(--bar-dark) 100%);
+      color:#fff;
+      font-weight: 900;
+      padding: 12px 14px;
       cursor:pointer;
-      font-size: 14px;
-      letter-spacing:.1px;
+      font-size: 13px;
     }
     .savebtn:hover{ filter: brightness(1.02); }
     .savebtn:active{ transform: translateY(1px); }
 
-    .tiny-note{
-      text-align:center;
-      color:#fff;
-      opacity:.92;
-      font-size:12px;
-      font-weight:800;
-      margin-top: 10px;
-    }
-
     @media print{
       body{ background:#fff; padding:0; }
-      .topbar, .tiny-note{ display:none !important; }
+      .lang{ display:none !important; }
       .card{ box-shadow:none; border-radius:0; }
+      .savebar{ display:none !important; }
     }
   </style>
 </head>
 
 <body>
   <div class="container">
-
-    <!-- Top Header + Language (safe, minimal) -->
-    <div class="topbar">
-      <div class="brand">
-        <div class="brand-badge">D</div>
-        <div>
-          <div>D.E.Bs Learning Academy</div>
-          <small data-i18n="tagline">Unlocking Brilliance Through Learning ✨</small>
-        </div>
-      </div>
-
-      <div class="langwrap">
-        <div class="langlabel">🌍 <span data-i18n="language">Language</span>:</div>
-        <select id="langSelect" aria-label="Language">
-          <option value="en">English</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="zh">中文</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Main Card -->
     <div class="card">
       <div class="head">
+        <div class="lang">
+          <span data-i18n="langLabel">Language</span>
+          <select id="langSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="zh">中文</option>
+          </select>
+        </div>
+
         <h1 data-i18n="title">Mid-Year Student Snapshot</h1>
-        <div class="sub" data-i18n="subtitle">A clear check-in for parents (no shame, just clarity 💡)</div>
+        <div class="sub" data-i18n="subtitle">Parent Power Circle • D.E.Bs Learning Academy</div>
       </div>
 
       <div class="content">
-        <form id="snapshotForm" onsubmit="return false;">
+        <form id="snapshotForm">
 
           <!-- A -->
           <div class="section">
-            <div class="section-title"><span class="badge">A</span> 👧🏽📘 <span data-i18n="secA">Student Information</span></div>
+            <div class="section-title"><span class="badge">A</span> <span data-i18n="secA">👧🏽📘 Student Information</span></div>
             <div class="section-body">
               <div class="grid-2">
                 <div>
-                  <label for="studentName">🧒 <span data-i18n="studentName">Student Name</span>:</label>
+                  <label for="studentName" data-i18n="studentName">Student Name:</label>
                   <input type="text" id="studentName" required />
                 </div>
                 <div>
-                  <label for="grade">🎒 <span data-i18n="grade">Grade</span>:</label>
+                  <label for="grade" data-i18n="grade">Grade:</label>
                   <input type="text" id="grade" required />
                 </div>
                 <div>
-                  <label for="school">🏫 <span data-i18n="school">School</span>:</label>
+                  <label for="school" data-i18n="school">School:</label>
                   <input type="text" id="school" />
                 </div>
                 <div>
-                  <label for="teacher">👩🏽‍🏫 <span data-i18n="teacher">Homeroom / Main Teacher</span>:</label>
+                  <label for="teacher" data-i18n="teacher">Homeroom / Main Teacher:</label>
                   <input type="text" id="teacher" />
                 </div>
                 <div>
-                  <label for="todayDate">📅 <span data-i18n="todayDate">Today’s Date</span>:</label>
+                  <label for="todayDate" data-i18n="todayDate">Today's Date:</label>
                   <input type="date" id="todayDate" />
                 </div>
                 <div>
-                  <label for="term">🗓️ <span data-i18n="term">Reporting Period (Term)</span>:</label>
-                  <input type="text" id="term" placeholder="e.g., Fall 2025" data-i18n-placeholder="termPH"/>
+                  <label for="term" data-i18n="term">Reporting Period (Term):</label>
+                  <input type="text" id="term" placeholder="e.g., Fall 2025" data-i18n-placeholder="termPh"/>
                 </div>
               </div>
             </div>
@@ -368,173 +220,133 @@
 
           <!-- B -->
           <div class="section">
-            <div class="section-title"><span class="badge">B</span> 😊🏫 <span data-i18n="secB">How School Feels Right Now</span></div>
+            <div class="section-title"><span class="badge">B</span> <span data-i18n="secB">😊🏫 How School Feels Right Now</span></div>
             <div class="section-body">
-              <div class="hint">✨ <span data-i18n="b1">How does my child seem to feel about school overall? (check all that fit)</span></div>
-
+              <div class="hint"><b>1️⃣</b> <span data-i18n="b1">How does my child seem to feel about school overall? (check all that fit)</span></div>
               <div class="checklist">
-                <label class="check-item">
-                  <input type="checkbox" name="feelings" value="Excited most days">
-                  😍 <span data-i18n="feel1">Excited most days</span>
-                </label>
-
-                <label class="check-item">
-                  <input type="checkbox" name="feelings" value="Fine / it’s just school">
-                  😐 <span data-i18n="feel2">Fine / it’s just school</span>
-                </label>
-
-                <label class="check-item">
-                  <input type="checkbox" name="feelings" value="Anxious / nervous">
-                  😟 <span data-i18n="feel3">Anxious / nervous</span>
-                </label>
-
-                <label class="check-item">
-                  <input type="checkbox" name="feelings" value="Bored / unmotivated">
-                  😴 <span data-i18n="feel4">Bored / unmotivated</span>
-                </label>
-
-                <label class="check-item">
-                  <input type="checkbox" name="feelings" value="Overwhelmed / frustrated">
-                  😣 <span data-i18n="feel5">Overwhelmed / frustrated</span>
-                </label>
-
-                <label class="check-item">
-                  <input type="checkbox" name="feelings" value="Not sure / mixed signals">
-                  🤷🏽‍♀️ <span data-i18n="feel6">Not sure / mixed signals</span>
-                </label>
+                <label class="check-item"><input type="checkbox" name="feelings" value="excited"> <span data-i18n="feel_excited">😍 Excited most days</span></label>
+                <label class="check-item"><input type="checkbox" name="feelings" value="fine"> <span data-i18n="feel_fine">😐 Fine / it’s just school</span></label>
+                <label class="check-item"><input type="checkbox" name="feelings" value="anxious"> <span data-i18n="feel_anxious">😟 Anxious / nervous</span></label>
+                <label class="check-item"><input type="checkbox" name="feelings" value="bored"> <span data-i18n="feel_bored">😴 Bored / unmotivated</span></label>
+                <label class="check-item"><input type="checkbox" name="feelings" value="overwhelmed"> <span data-i18n="feel_overwhelmed">😣 Overwhelmed / frustrated</span></label>
+                <label class="check-item"><input type="checkbox" name="feelings" value="not_sure"> <span data-i18n="feel_not_sure">🤷🏽‍♀️ Not sure / mixed signals</span></label>
               </div>
 
-              <div style="height:12px;"></div>
+              <div style="height:10px;"></div>
 
-              <div class="hint">🧠 <span data-i18n="b2">How do I feel about this school year so far?</span></div>
+              <div class="hint"><b>2️⃣</b> <span data-i18n="b2">How do I feel about this school year so far?</span></div>
               <div class="radio-group">
-                <label class="radio-item">
-                  <input type="radio" name="yearFeel" value="Mostly calm and confident">
-                  😌 <span data-i18n="yearFeel1">Mostly calm and confident</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="yearFeel" value="Quietly worried">
-                  😬 <span data-i18n="yearFeel2">Quietly worried</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="yearFeel" value="Very stressed and unsure what to do">
-                  😰 <span data-i18n="yearFeel3">Very stressed and unsure what to do</span>
-                </label>
-                <label class="radio-item">
-                  <input type="radio" name="yearFeel" value="Mixed—some things are going great, others not at all">
-                  🎭 <span data-i18n="yearFeel4">Mixed—some things are going great, others not at all</span>
-                </label>
+                <label class="radio-item"><input type="radio" name="yearFeel" value="calm"> <span data-i18n="year_calm">😌 Mostly calm and confident</span></label>
+                <label class="radio-item"><input type="radio" name="yearFeel" value="worried"> <span data-i18n="year_worried">😬 Quietly worried</span></label>
+                <label class="radio-item"><input type="radio" name="yearFeel" value="stressed"> <span data-i18n="year_stressed">😰 Very stressed and unsure what to do</span></label>
+                <label class="radio-item"><input type="radio" name="yearFeel" value="mixed"> <span data-i18n="year_mixed">🎭 Mixed—some things are going great, others not at all</span></label>
               </div>
 
-              <div style="height:12px;"></div>
+              <div style="height:10px;"></div>
 
-              <label for="yearSummary">📝 <span data-i18n="yearSummary">In 1–2 sentences, describe this school year so far</span>:</label>
-              <textarea id="yearSummary" data-i18n-placeholder="yearSummaryPH"
-                placeholder="Example: The grades look okay, but homework time has become a battle and confidence is dropping."></textarea>
+              <label for="yearSummary" data-i18n="yearSummaryLabel">📝 In one or two sentences, describe this school year so far:</label>
+              <textarea id="yearSummary" data-i18n-placeholder="yearSummaryPh" placeholder="Example: The grades look okay, but homework time has become a battle and confidence is dropping."></textarea>
             </div>
           </div>
 
           <!-- C -->
           <div class="section">
-            <div class="section-title"><span class="badge">C</span> 📊✏️ <span data-i18n="secC">Quick Academic Snapshot</span></div>
+            <div class="section-title"><span class="badge">C</span> <span data-i18n="secC">📊✏️ Quick Academic Snapshot</span></div>
             <div class="section-body">
-              <div class="hint">📌 <span data-i18n="cHint">Use your report card, grading portal, or teacher comments.</span></div>
+              <div class="hint" data-i18n="cHint">📌 Use your report card, grading portal, or teacher comments to fill this in.</div>
 
               <table>
                 <thead>
                   <tr>
-                    <th style="width: 28%;" data-i18n="thSubject">Subject</th>
-                    <th style="width: 16%;" data-i18n="thGrade">Grade / Level</th>
-                    <th style="width: 18%;" data-i18n="thFeel">How I Feel</th>
-                    <th data-i18n="thNotes">Teacher Notes</th>
+                    <th style="width: 28%;" data-i18n="cSubject">Subject</th>
+                    <th style="width: 16%;" data-i18n="cGradeLevel">Grade / Level</th>
+                    <th style="width: 18%;" data-i18n="cHowIFeel">How I Feel</th>
+                    <th data-i18n="cTeacherNotes">Teacher Notes</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td><b>📚 <span data-i18n="subReading">Reading / ELA</span></b></td>
+                    <td><b data-i18n="cReading">Reading / ELA</b></td>
                     <td><input class="mini-input" id="c_read_grade" /></td>
                     <td>
                       <select class="mini-input" id="c_read_feel">
                         <option value=""></option>
-                        <option data-i18n="feelOpt1">Confident ✅</option>
-                        <option data-i18n="feelOpt2">Okay 🙂</option>
-                        <option data-i18n="feelOpt3">Concerned 😕</option>
-                        <option data-i18n="feelOpt4">Not sure 🤷🏽‍♀️</option>
+                        <option value="confident" data-i18n="feel_confident">Confident ✅</option>
+                        <option value="okay" data-i18n="feel_okay">Okay 🙂</option>
+                        <option value="concerned" data-i18n="feel_concerned">Concerned 😕</option>
+                        <option value="not_sure" data-i18n="feel_notsure">Not sure 🤷🏽‍♀️</option>
                       </select>
                     </td>
                     <td><textarea class="mini-input" id="c_read_notes" style="min-height:44px;"></textarea></td>
                   </tr>
-
                   <tr>
-                    <td><b>➗ <span data-i18n="subMath">Math</span></b></td>
+                    <td><b data-i18n="cMath">Math</b></td>
                     <td><input class="mini-input" id="c_math_grade" /></td>
                     <td>
                       <select class="mini-input" id="c_math_feel">
                         <option value=""></option>
-                        <option data-i18n="feelOpt1">Confident ✅</option>
-                        <option data-i18n="feelOpt2">Okay 🙂</option>
-                        <option data-i18n="feelOpt3">Concerned 😕</option>
-                        <option data-i18n="feelOpt4">Not sure 🤷🏽‍♀️</option>
+                        <option value="confident" data-i18n="feel_confident">Confident ✅</option>
+                        <option value="okay" data-i18n="feel_okay">Okay 🙂</option>
+                        <option value="concerned" data-i18n="feel_concerned">Concerned 😕</option>
+                        <option value="not_sure" data-i18n="feel_notsure">Not sure 🤷🏽‍♀️</option>
                       </select>
                     </td>
                     <td><textarea class="mini-input" id="c_math_notes" style="min-height:44px;"></textarea></td>
                   </tr>
-
                   <tr>
-                    <td><b>🧪 <span data-i18n="subScience">Science</span></b></td>
+                    <td><b data-i18n="cScience">Science</b></td>
                     <td><input class="mini-input" id="c_sci_grade" /></td>
                     <td>
                       <select class="mini-input" id="c_sci_feel">
                         <option value=""></option>
-                        <option data-i18n="feelOpt1">Confident ✅</option>
-                        <option data-i18n="feelOpt2">Okay 🙂</option>
-                        <option data-i18n="feelOpt3">Concerned 😕</option>
-                        <option data-i18n="feelOpt4">Not sure 🤷🏽‍♀️</option>
+                        <option value="confident" data-i18n="feel_confident">Confident ✅</option>
+                        <option value="okay" data-i18n="feel_okay">Okay 🙂</option>
+                        <option value="concerned" data-i18n="feel_concerned">Concerned 😕</option>
+                        <option value="not_sure" data-i18n="feel_notsure">Not sure 🤷🏽‍♀️</option>
                       </select>
                     </td>
                     <td><textarea class="mini-input" id="c_sci_notes" style="min-height:44px;"></textarea></td>
                   </tr>
-
                   <tr>
-                    <td><b>🌍 <span data-i18n="subSocial">Social Studies</span></b></td>
+                    <td><b data-i18n="cSocial">Social Studies</b></td>
                     <td><input class="mini-input" id="c_ss_grade" /></td>
                     <td>
                       <select class="mini-input" id="c_ss_feel">
                         <option value=""></option>
-                        <option data-i18n="feelOpt1">Confident ✅</option>
-                        <option data-i18n="feelOpt2">Okay 🙂</option>
-                        <option data-i18n="feelOpt3">Concerned 😕</option>
-                        <option data-i18n="feelOpt4">Not sure 🤷🏽‍♀️</option>
+                        <option value="confident" data-i18n="feel_confident">Confident ✅</option>
+                        <option value="okay" data-i18n="feel_okay">Okay 🙂</option>
+                        <option value="concerned" data-i18n="feel_concerned">Concerned 😕</option>
+                        <option value="not_sure" data-i18n="feel_notsure">Not sure 🤷🏽‍♀️</option>
                       </select>
                     </td>
                     <td><textarea class="mini-input" id="c_ss_notes" style="min-height:44px;"></textarea></td>
                   </tr>
 
                   <tr>
-                    <td><input class="mini-input" id="c_other1_name" data-i18n-placeholder="otherSubPH" placeholder="Other subject..." /></td>
+                    <td><input class="mini-input" id="c_other1_name" placeholder="Other subject..." data-i18n-placeholder="otherSubjectPh"/></td>
                     <td><input class="mini-input" id="c_other1_grade" /></td>
                     <td>
                       <select class="mini-input" id="c_other1_feel">
                         <option value=""></option>
-                        <option data-i18n="feelOpt1">Confident ✅</option>
-                        <option data-i18n="feelOpt2">Okay 🙂</option>
-                        <option data-i18n="feelOpt3">Concerned 😕</option>
-                        <option data-i18n="feelOpt4">Not sure 🤷🏽‍♀️</option>
+                        <option value="confident" data-i18n="feel_confident">Confident ✅</option>
+                        <option value="okay" data-i18n="feel_okay">Okay 🙂</option>
+                        <option value="concerned" data-i18n="feel_concerned">Concerned 😕</option>
+                        <option value="not_sure" data-i18n="feel_notsure">Not sure 🤷🏽‍♀️</option>
                       </select>
                     </td>
                     <td><textarea class="mini-input" id="c_other1_notes" style="min-height:44px;"></textarea></td>
                   </tr>
 
                   <tr>
-                    <td><input class="mini-input" id="c_other2_name" data-i18n-placeholder="otherSubPH" placeholder="Other subject..." /></td>
+                    <td><input class="mini-input" id="c_other2_name" placeholder="Other subject..." data-i18n-placeholder="otherSubjectPh"/></td>
                     <td><input class="mini-input" id="c_other2_grade" /></td>
                     <td>
                       <select class="mini-input" id="c_other2_feel">
                         <option value=""></option>
-                        <option data-i18n="feelOpt1">Confident ✅</option>
-                        <option data-i18n="feelOpt2">Okay 🙂</option>
-                        <option data-i18n="feelOpt3">Concerned 😕</option>
-                        <option data-i18n="feelOpt4">Not sure 🤷🏽‍♀️</option>
+                        <option value="confident" data-i18n="feel_confident">Confident ✅</option>
+                        <option value="okay" data-i18n="feel_okay">Okay 🙂</option>
+                        <option value="concerned" data-i18n="feel_concerned">Concerned 😕</option>
+                        <option value="not_sure" data-i18n="feel_notsure">Not sure 🤷🏽‍♀️</option>
                       </select>
                     </td>
                     <td><textarea class="mini-input" id="c_other2_notes" style="min-height:44px;"></textarea></td>
@@ -546,104 +358,100 @@
 
           <!-- D -->
           <div class="section">
-            <div class="section-title"><span class="badge">D</span> 🎯🧠 <span data-i18n="secD">Behavior, Focus & Organization</span></div>
+            <div class="section-title"><span class="badge">D</span> <span data-i18n="secD">🎯🧠 Behavior, Focus & Organization</span></div>
             <div class="section-body">
-              <div class="hint">🏫 <span data-i18n="dSchool">At school (teacher comments / notes):</span></div>
+              <div class="hint"><b data-i18n="dAtSchoolTitle">🏫 At school</b> <span data-i18n="dAtSchoolNote">(teacher comments / notes):</span></div>
               <div class="checklist">
-                <label class="check-item"><input type="checkbox" name="schoolBeh" value="Usually focused and on-task"> ✅ <span data-i18n="sb1">Usually focused and on-task</span></label>
-                <label class="check-item"><input type="checkbox" name="schoolBeh" value="Needs reminders / redirection"> 🔁 <span data-i18n="sb2">Needs reminders / redirection</span></label>
-                <label class="check-item"><input type="checkbox" name="schoolBeh" value="Rushes through work"> ⏩ <span data-i18n="sb3">Rushes through work</span></label>
-                <label class="check-item"><input type="checkbox" name="schoolBeh" value="Often doesn’t finish work"> 🧩 <span data-i18n="sb4">Often doesn’t finish work</span></label>
-                <label class="check-item"><input type="checkbox" name="schoolBeh" value="Behavior notes / calls home"> 📞 <span data-i18n="sb5">Behavior notes / calls home</span></label>
-                <label class="check-item"><input type="checkbox" name="schoolBeh" value="No major concerns reported"> 👍 <span data-i18n="sb6">No major concerns reported</span></label>
+                <label class="check-item"><input type="checkbox" name="schoolBeh" value="focused"> <span data-i18n="sb_focused">✅ Usually focused and on-task</span></label>
+                <label class="check-item"><input type="checkbox" name="schoolBeh" value="needs_reminders"> <span data-i18n="sb_reminders">🔁 Needs reminders / redirection</span></label>
+                <label class="check-item"><input type="checkbox" name="schoolBeh" value="rushes"> <span data-i18n="sb_rushes">⏩ Rushes through work</span></label>
+                <label class="check-item"><input type="checkbox" name="schoolBeh" value="not_finish"> <span data-i18n="sb_notfinish">🧩 Often doesn’t finish work</span></label>
+                <label class="check-item"><input type="checkbox" name="schoolBeh" value="calls_home"> <span data-i18n="sb_calls">📞 Behavior notes / calls home</span></label>
+                <label class="check-item"><input type="checkbox" name="schoolBeh" value="no_concerns"> <span data-i18n="sb_noconcerns">👍 No major concerns reported</span></label>
               </div>
 
-              <div style="height:12px;"></div>
+              <div style="height:10px;"></div>
 
-              <div class="hint">🏠 <span data-i18n="dHome">At home during homework / study time:</span></div>
+              <div class="hint"><b data-i18n="dAtHomeTitle">🏠 At home during homework / study time</b>:</div>
               <div class="checklist">
-                <label class="check-item"><input type="checkbox" name="homeBeh" value="Starts on their own"> 🚀 <span data-i18n="hb1">Starts on their own</span></label>
-                <label class="check-item"><input type="checkbox" name="homeBeh" value="Needs reminders but will do it"> ⏰ <span data-i18n="hb2">Needs reminders but will do it</span></label>
-                <label class="check-item"><input type="checkbox" name="homeBeh" value="Fights / tears are common"> 😭 <span data-i18n="hb3">Fights / tears are common</span></label>
-                <label class="check-item"><input type="checkbox" name="homeBeh" value="Says “I’m dumb” or “I can’t do this”"> 💔 <span data-i18n="hb4">Says “I’m dumb” or “I can’t do this”</span></label>
-                <label class="check-item"><input type="checkbox" name="homeBeh" value="Avoids homework or hides assignments"> 🙈 <span data-i18n="hb5">Avoids homework or hides assignments</span></label>
+                <label class="check-item"><input type="checkbox" name="homeBeh" value="starts_alone"> <span data-i18n="hb_starts">🚀 Starts on their own</span></label>
+                <label class="check-item"><input type="checkbox" name="homeBeh" value="needs_reminders"> <span data-i18n="hb_reminders">⏰ Needs reminders but will do it</span></label>
+                <label class="check-item"><input type="checkbox" name="homeBeh" value="tears"> <span data-i18n="hb_tears">😭 Fights / tears are common</span></label>
+                <label class="check-item"><input type="checkbox" name="homeBeh" value="negative_self_talk"> <span data-i18n="hb_neg">💔 Says “I’m dumb” or “I can’t do this”</span></label>
+                <label class="check-item"><input type="checkbox" name="homeBeh" value="avoids"> <span data-i18n="hb_avoids">🙈 Avoids homework or hides assignments</span></label>
               </div>
 
-              <div style="height:12px;"></div>
+              <div style="height:10px;"></div>
 
-              <label for="behaviorNotes">🗒️ <span data-i18n="behaviorNotes">Notes</span>:</label>
+              <label for="behaviorNotes" data-i18n="behaviorNotesLabel">🗒️ Notes:</label>
               <textarea id="behaviorNotes"></textarea>
             </div>
           </div>
 
           <!-- E -->
           <div class="section">
-            <div class="section-title"><span class="badge">E</span> 🌟🏆 <span data-i18n="secE">Strengths & Wins</span></div>
+            <div class="section-title"><span class="badge">E</span> <span data-i18n="secE">🌟🏆 Strengths & Wins</span></div>
             <div class="section-body">
-              <label for="strengthsAcademic">📚 <span data-i18n="strengthsAcademic">Academic / learning strengths</span>:</label>
+              <label for="strengthsAcademic" data-i18n="strengthsAcademic">📚 Academic / learning strengths:</label>
               <textarea id="strengthsAcademic"></textarea>
 
               <div style="height:10px;"></div>
 
-              <label for="strengthsPersonal">💛 <span data-i18n="strengthsPersonal">Personal strengths (character, talents, social skills)</span>:</label>
+              <label for="strengthsPersonal" data-i18n="strengthsPersonal">💛 Personal strengths (character, talents, social skills):</label>
               <textarea id="strengthsPersonal"></textarea>
 
               <div style="height:10px;"></div>
 
-              <label for="wins">🏆 <span data-i18n="wins">Wins from this school year (big or small)</span>:</label>
+              <label for="wins" data-i18n="wins">🏆 Wins from this school year (big or small):</label>
               <textarea id="wins"></textarea>
             </div>
           </div>
 
           <!-- F -->
           <div class="section">
-            <div class="section-title"><span class="badge">F</span> ⚠️😣 <span data-i18n="secF">Challenges & Worries</span></div>
+            <div class="section-title"><span class="badge">F</span> <span data-i18n="secF">⚠️😣 Challenges & Worries</span></div>
             <div class="section-body">
-              <label for="concernsTop">⚠️ <span data-i18n="concernsTop">Top concerns (academic, emotional, or behavior)</span>:</label>
+              <label for="concernsTop" data-i18n="concernsTop">⚠️ Top concerns (academic, emotional, or behavior):</label>
               <textarea id="concernsTop"></textarea>
             </div>
           </div>
 
           <!-- G -->
           <div class="section">
-            <div class="section-title"><span class="badge">G</span> ❓🗣️ <span data-i18n="secG">Questions for the School / Teacher</span></div>
+            <div class="section-title"><span class="badge">G</span> <span data-i18n="secG">❓🗣️ Questions for the School / Teacher</span></div>
             <div class="section-body">
-              <label for="q1">1️⃣ <span data-i18n="q1">Question 1</span></label>
+              <label for="q1">1️⃣</label>
               <textarea id="q1" style="min-height:70px;"></textarea>
-
               <div style="height:10px;"></div>
-
-              <label for="q2">2️⃣ <span data-i18n="q2">Question 2</span></label>
+              <label for="q2">2️⃣</label>
               <textarea id="q2" style="min-height:70px;"></textarea>
-
               <div style="height:10px;"></div>
-
-              <label for="q3">3️⃣ <span data-i18n="q3">Question 3</span></label>
+              <label for="q3">3️⃣</label>
               <textarea id="q3" style="min-height:70px;"></textarea>
             </div>
           </div>
 
           <!-- H -->
           <div class="section">
-            <div class="section-title"><span class="badge">H</span> 🎯📅 <span data-i18n="secH">Priority Focus for the Next 6–8 Weeks</span></div>
+            <div class="section-title"><span class="badge">H</span> <span data-i18n="secH">🎯📅 Priority Focus for the Next 6–8 Weeks</span></div>
             <div class="section-body">
-              <div class="hint">🎯 <span data-i18n="hHint">Over the next 6–8 weeks, our family will focus on:</span></div>
+              <div class="hint"><b data-i18n="hTop">🎯 Top 1–3 focus areas (write here):</b><br/><span data-i18n="hSub">Over the next 6–8 weeks, our family will focus on:</span></div>
               <textarea id="priorityFocus"></textarea>
 
               <div style="height:10px;"></div>
 
-              <label for="supportNeeded">🤝 <span data-i18n="supportNeeded">Support we need from school / D.E.Bs</span>:</label>
+              <label for="supportNeeded" data-i18n="supportNeeded">🤝 Support we need from school / D.E.Bs:</label>
               <textarea id="supportNeeded"></textarea>
 
               <div style="height:10px;"></div>
 
               <div class="grid-2">
                 <div>
-                  <label for="signature">✍🏽 <span data-i18n="signature">Parent/Guardian Signature</span>:</label>
-                  <input type="text" id="signature" data-i18n-placeholder="signaturePH" placeholder="Type your name" />
+                  <label for="signature" data-i18n="signature">✍🏽 Parent/Guardian Signature:</label>
+                  <input type="text" id="signature" placeholder="Type your name" data-i18n-placeholder="signaturePh"/>
                 </div>
                 <div>
-                  <label for="signDate">📅 <span data-i18n="signDate">Date</span>:</label>
+                  <label for="signDate" data-i18n="signDate">📅 Date:</label>
                   <input type="date" id="signDate" />
                 </div>
               </div>
@@ -654,385 +462,412 @@
       </div>
 
       <div class="savebar">
-        <button class="savebtn" id="btnSaveSnapshot" type="button">💾 <span data-i18n="saveBtn">Save Student Snapshot</span></button>
+        <button class="savebtn" id="btnSaveSnapshot" type="button" data-i18n="saveBtn">💾 Save Student Snapshot</button>
       </div>
     </div>
-
-    <div class="tiny-note" data-i18n="privacyNote">🔒 Your info saves to your device + is sent to D.E.Bs securely for review. No spam. No mess.</div>
   </div>
 
   <script>
     // ================================
-    // ✅ GOOGLE SHEETS (APPS SCRIPT) URL
+    // ✅ SETTINGS
     // ================================
+    const STORAGE_SNAPSHOT_KEY = "debs_midyear_last_snapshot_v1";
+    const STORAGE_DRAFT_KEY    = "debs_midyear_draft_v1";
+    const STORAGE_LANG_KEY     = "debs_midyear_lang_v1";
+
+    // ✅ GOOGLE SHEETS (APPS SCRIPT) URL (replace if you deploy a new one)
     const SHEETS_WEBAPP_URL =
       "https://script.google.com/macros/s/AKfycbwPp72sNGIDJBr4Kcy1uWi-D-qUULdRF_dlYAUnKdFnpHqDNUE265I9VYf8BzTEM0bobA/exec";
 
     // ================================
-    // ✅ LANGUAGE (CODE ONLY): en, es, fr, zh
-    // Stored in sheet as code only.
-    // ================================
-    let currentLang = localStorage.getItem("debs_snapshot_lang") || "en";
-
-    // ================================
-    // ✅ i18n dictionary (UI labels only)
+    // ✅ I18N (EN / ES / FR / ZH)
     // ================================
     const I18N = {
       en: {
-        language:"Language",
-        tagline:"Unlocking Brilliance Through Learning ✨",
+        langLabel:"Language",
         title:"Mid-Year Student Snapshot",
-        subtitle:"A clear check-in for parents (no shame, just clarity 💡)",
+        subtitle:"Parent Power Circle • D.E.Bs Learning Academy",
 
-        secA:"Student Information",
-        studentName:"Student Name",
-        grade:"Grade",
-        school:"School",
-        teacher:"Homeroom / Main Teacher",
-        todayDate:"Today’s Date",
-        term:"Reporting Period (Term)",
-        termPH:"e.g., Fall 2025",
+        secA:"👧🏽📘 Student Information",
+        secB:"😊🏫 How School Feels Right Now",
+        secC:"📊✏️ Quick Academic Snapshot",
+        secD:"🎯🧠 Behavior, Focus & Organization",
+        secE:"🌟🏆 Strengths & Wins",
+        secF:"⚠️😣 Challenges & Worries",
+        secG:"❓🗣️ Questions for the School / Teacher",
+        secH:"🎯📅 Priority Focus for the Next 6–8 Weeks",
 
-        secB:"How School Feels Right Now",
+        studentName:"Student Name:",
+        grade:"Grade:",
+        school:"School:",
+        teacher:"Homeroom / Main Teacher:",
+        todayDate:"Today's Date:",
+        term:"Reporting Period (Term):",
+        termPh:"e.g., Fall 2025",
+
         b1:"How does my child seem to feel about school overall? (check all that fit)",
-        feel1:"Excited most days",
-        feel2:"Fine / it’s just school",
-        feel3:"Anxious / nervous",
-        feel4:"Bored / unmotivated",
-        feel5:"Overwhelmed / frustrated",
-        feel6:"Not sure / mixed signals",
         b2:"How do I feel about this school year so far?",
-        yearFeel1:"Mostly calm and confident",
-        yearFeel2:"Quietly worried",
-        yearFeel3:"Very stressed and unsure what to do",
-        yearFeel4:"Mixed—some things are going great, others not at all",
-        yearSummary:"In 1–2 sentences, describe this school year so far",
-        yearSummaryPH:"Example: The grades look okay, but homework time has become a battle and confidence is dropping.",
+        yearSummaryLabel:"📝 In one or two sentences, describe this school year so far:",
+        yearSummaryPh:"Example: The grades look okay, but homework time has become a battle and confidence is dropping.",
 
-        secC:"Quick Academic Snapshot",
-        cHint:"Use your report card, grading portal, or teacher comments.",
-        thSubject:"Subject",
-        thGrade:"Grade / Level",
-        thFeel:"How I Feel",
-        thNotes:"Teacher Notes",
-        subReading:"Reading / ELA",
-        subMath:"Math",
-        subScience:"Science",
-        subSocial:"Social Studies",
-        otherSubPH:"Other subject...",
-        feelOpt1:"Confident ✅",
-        feelOpt2:"Okay 🙂",
-        feelOpt3:"Concerned 😕",
-        feelOpt4:"Not sure 🤷🏽‍♀️",
+        feel_excited:"😍 Excited most days",
+        feel_fine:"😐 Fine / it’s just school",
+        feel_anxious:"😟 Anxious / nervous",
+        feel_bored:"😴 Bored / unmotivated",
+        feel_overwhelmed:"😣 Overwhelmed / frustrated",
+        feel_not_sure:"🤷🏽‍♀️ Not sure / mixed signals",
 
-        secD:"Behavior, Focus & Organization",
-        dSchool:"At school (teacher comments / notes):",
-        sb1:"Usually focused and on-task",
-        sb2:"Needs reminders / redirection",
-        sb3:"Rushes through work",
-        sb4:"Often doesn’t finish work",
-        sb5:"Behavior notes / calls home",
-        sb6:"No major concerns reported",
-        dHome:"At home during homework / study time:",
-        hb1:"Starts on their own",
-        hb2:"Needs reminders but will do it",
-        hb3:"Fights / tears are common",
-        hb4:"Says “I’m dumb” or “I can’t do this”",
-        hb5:"Avoids homework or hides assignments",
-        behaviorNotes:"Notes",
+        year_calm:"😌 Mostly calm and confident",
+        year_worried:"😬 Quietly worried",
+        year_stressed:"😰 Very stressed and unsure what to do",
+        year_mixed:"🎭 Mixed—some things are going great, others not at all",
 
-        secE:"Strengths & Wins",
-        strengthsAcademic:"Academic / learning strengths",
-        strengthsPersonal:"Personal strengths (character, talents, social skills)",
-        wins:"Wins from this school year (big or small)",
+        cHint:"📌 Use your report card, grading portal, or teacher comments to fill this in.",
+        cSubject:"Subject",
+        cGradeLevel:"Grade / Level",
+        cHowIFeel:"How I Feel",
+        cTeacherNotes:"Teacher Notes",
+        cReading:"Reading / ELA",
+        cMath:"Math",
+        cScience:"Science",
+        cSocial:"Social Studies",
+        otherSubjectPh:"Other subject...",
 
-        secF:"Challenges & Worries",
-        concernsTop:"Top concerns (academic, emotional, or behavior)",
+        feel_confident:"Confident ✅",
+        feel_okay:"Okay 🙂",
+        feel_concerned:"Concerned 😕",
+        feel_notsure:"Not sure 🤷🏽‍♀️",
 
-        secG:"Questions for the School / Teacher",
-        q1:"Question 1",
-        q2:"Question 2",
-        q3:"Question 3",
+        dAtSchoolTitle:"🏫 At school",
+        dAtSchoolNote:"(teacher comments / notes):",
+        dAtHomeTitle:"🏠 At home during homework / study time",
 
-        secH:"Priority Focus for the Next 6–8 Weeks",
-        hHint:"Over the next 6–8 weeks, our family will focus on:",
-        supportNeeded:"Support we need from school / D.E.Bs",
-        signature:"Parent/Guardian Signature",
-        signaturePH:"Type your name",
-        signDate:"Date",
+        sb_focused:"✅ Usually focused and on-task",
+        sb_reminders:"🔁 Needs reminders / redirection",
+        sb_rushes:"⏩ Rushes through work",
+        sb_notfinish:"🧩 Often doesn’t finish work",
+        sb_calls:"📞 Behavior notes / calls home",
+        sb_noconcerns:"👍 No major concerns reported",
 
-        saveBtn:"Save Student Snapshot",
-        privacyNote:"🔒 Your info saves to your device + is sent to D.E.Bs securely for review. No spam. No mess.",
-        alertMissing:"Please enter Student Name and Grade before saving."
+        hb_starts:"🚀 Starts on their own",
+        hb_reminders:"⏰ Needs reminders but will do it",
+        hb_tears:"😭 Fights / tears are common",
+        hb_neg:"💔 Says “I’m dumb” or “I can’t do this”",
+        hb_avoids:"🙈 Avoids homework or hides assignments",
+
+        behaviorNotesLabel:"🗒️ Notes:",
+        strengthsAcademic:"📚 Academic / learning strengths:",
+        strengthsPersonal:"💛 Personal strengths (character, talents, social skills):",
+        wins:"🏆 Wins from this school year (big or small):",
+        concernsTop:"⚠️ Top concerns (academic, emotional, or behavior):",
+
+        hTop:"🎯 Top 1–3 focus areas (write here):",
+        hSub:"Over the next 6–8 weeks, our family will focus on:",
+        supportNeeded:"🤝 Support we need from school / D.E.Bs:",
+        signature:"✍🏽 Parent/Guardian Signature:",
+        signaturePh:"Type your name",
+        signDate:"📅 Date:",
+
+        saveBtn:"💾 Save Student Snapshot",
+
+        alertMissing:"Please enter Student Name and Grade before saving.",
+        alertSaved:"Saved ✅ Sending…",
       },
 
       es: {
-        language:"Idioma",
-        tagline:"Desbloqueando el brillo a través del aprendizaje ✨",
-        title:"Resumen de Mitad de Año del Estudiante",
-        subtitle:"Un chequeo claro para familias (sin culpa, solo claridad 💡)",
+        langLabel:"Idioma",
+        title:"Resumen de Medio Año del Estudiante",
+        subtitle:"Parent Power Circle • D.E.Bs Learning Academy",
 
-        secA:"Información del Estudiante",
-        studentName:"Nombre del estudiante",
-        grade:"Grado",
-        school:"Escuela",
-        teacher:"Maestro/a principal",
-        todayDate:"Fecha de hoy",
-        term:"Período (Trimestre)",
-        termPH:"Ej.: Otoño 2025",
+        secA:"👧🏽📘 Información del Estudiante",
+        secB:"😊🏫 Cómo se Siente la Escuela Ahora",
+        secC:"📊✏️ Resumen Académico Rápido",
+        secD:"🎯🧠 Conducta, Enfoque y Organización",
+        secE:"🌟🏆 Fortalezas y Logros",
+        secF:"⚠️😣 Desafíos y Preocupaciones",
+        secG:"❓🗣️ Preguntas para la Escuela / Maestra(o)",
+        secH:"🎯📅 Prioridades para las Próximas 6–8 Semanas",
 
-        secB:"Cómo se Siente la Escuela Ahora",
-        b1:"¿Cómo parece sentirse tu hijo/a con la escuela? (marca todo lo que aplique)",
-        feel1:"Emocionado/a la mayoría de los días",
-        feel2:"Bien / es solo la escuela",
-        feel3:"Ansioso/a / nervioso/a",
-        feel4:"Aburrido/a / sin motivación",
-        feel5:"Abrumado/a / frustrado/a",
-        feel6:"No estoy seguro/a / señales mixtas",
-        b2:"¿Cómo me siento yo con este año escolar?",
-        yearFeel1:"Mayormente tranquilo/a y confiado/a",
-        yearFeel2:"Preocupación silenciosa",
-        yearFeel3:"Muy estresado/a y sin saber qué hacer",
-        yearFeel4:"Mixto—unas cosas van bien y otras no",
-        yearSummary:"En 1–2 frases, describe este año escolar",
-        yearSummaryPH:"Ej.: Las notas se ven bien, pero la tarea es una batalla y la confianza está bajando.",
+        studentName:"Nombre del estudiante:",
+        grade:"Grado:",
+        school:"Escuela:",
+        teacher:"Maestro(a) principal:",
+        todayDate:"Fecha de hoy:",
+        term:"Período (trimestre):",
+        termPh:"p. ej., Otoño 2025",
 
-        secC:"Resumen Académico Rápido",
-        cHint:"Usa boleta de calificaciones, portal o comentarios del maestro.",
-        thSubject:"Materia",
-        thGrade:"Nivel / Nota",
-        thFeel:"Cómo me siento",
-        thNotes:"Notas del maestro",
-        subReading:"Lectura / ELA",
-        subMath:"Matemáticas",
-        subScience:"Ciencias",
-        subSocial:"Estudios Sociales",
-        otherSubPH:"Otra materia...",
-        feelOpt1:"Con confianza ✅",
-        feelOpt2:"Bien 🙂",
-        feelOpt3:"Me preocupa 😕",
-        feelOpt4:"No estoy seguro/a 🤷🏽‍♀️",
+        b1:"¿Cómo parece sentirse mi hijo/a sobre la escuela en general? (marca todas las que correspondan)",
+        b2:"¿Cómo me siento yo con este año escolar hasta ahora?",
+        yearSummaryLabel:"📝 En una o dos oraciones, describe este año escolar hasta ahora:",
+        yearSummaryPh:"Ejemplo: Las calificaciones se ven bien, pero la tarea se volvió una batalla y la confianza está bajando.",
 
-        secD:"Conducta, Enfoque y Organización",
-        dSchool:"En la escuela (comentarios del maestro):",
-        sb1:"Generalmente enfocado/a",
-        sb2:"Necesita recordatorios / redirección",
-        sb3:"Hace el trabajo muy rápido",
-        sb4:"A menudo no termina",
-        sb5:"Notas de conducta / llamadas",
-        sb6:"Sin preocupaciones mayores",
-        dHome:"En casa durante la tarea / estudio:",
-        hb1:"Empieza solo/a",
-        hb2:"Necesita recordatorios pero lo hace",
-        hb3:"Peleas / lágrimas son comunes",
-        hb4:"Dice “soy tonto/a” o “no puedo”",
-        hb5:"Evita o esconde tareas",
-        behaviorNotes:"Notas",
+        feel_excited:"😍 Emocionado/a la mayoría de los días",
+        feel_fine:"😐 Bien / es solo la escuela",
+        feel_anxious:"😟 Ansioso/a / nervioso/a",
+        feel_bored:"😴 Aburrido/a / sin motivación",
+        feel_overwhelmed:"😣 Abrumado/a / frustrado/a",
+        feel_not_sure:"🤷🏽‍♀️ No estoy seguro/a / señales mixtas",
 
-        secE:"Fortalezas y Logros",
-        strengthsAcademic:"Fortalezas académicas",
-        strengthsPersonal:"Fortalezas personales (carácter, talentos, social)",
-        wins:"Logros de este año (grandes o pequeños)",
+        year_calm:"😌 Mayormente tranquilo/a y con confianza",
+        year_worried:"😬 Preocupación silenciosa",
+        year_stressed:"😰 Muy estresado/a y sin saber qué hacer",
+        year_mixed:"🎭 Mixto—algunas cosas van muy bien, otras no",
 
-        secF:"Retos y Preocupaciones",
-        concernsTop:"Principales preocupaciones (académicas, emocionales o conducta)",
+        cHint:"📌 Usa la boleta de calificaciones, el portal o comentarios del maestro para completar esto.",
+        cSubject:"Materia",
+        cGradeLevel:"Nivel / Calificación",
+        cHowIFeel:"Cómo me siento",
+        cTeacherNotes:"Notas del maestro",
+        cReading:"Lectura / ELA",
+        cMath:"Matemáticas",
+        cScience:"Ciencias",
+        cSocial:"Estudios sociales",
+        otherSubjectPh:"Otra materia...",
 
-        secG:"Preguntas para la Escuela / Maestro",
-        q1:"Pregunta 1",
-        q2:"Pregunta 2",
-        q3:"Pregunta 3",
+        feel_confident:"Con confianza ✅",
+        feel_okay:"Bien 🙂",
+        feel_concerned:"Preocupado/a 😕",
+        feel_notsure:"No estoy seguro/a 🤷🏽‍♀️",
 
-        secH:"Prioridades para las Próximas 6–8 Semanas",
-        hHint:"En las próximas 6–8 semanas, nuestra familia se enfocará en:",
-        supportNeeded:"Apoyo que necesitamos (escuela / D.E.Bs)",
-        signature:"Firma del padre/madre/tutor",
-        signaturePH:"Escribe tu nombre",
-        signDate:"Fecha",
+        dAtSchoolTitle:"🏫 En la escuela",
+        dAtSchoolNote:"(comentarios / notas del maestro):",
+        dAtHomeTitle:"🏠 En casa durante la tarea / estudio",
 
-        saveBtn:"Guardar Resumen",
-        privacyNote:"🔒 Tu info se guarda en tu dispositivo y se envía a D.E.Bs para revisión. Sin spam.",
-        alertMissing:"Por favor escribe el nombre del estudiante y el grado."
+        sb_focused:"✅ Usualmente enfocado/a",
+        sb_reminders:"🔁 Necesita recordatorios / redirección",
+        sb_rushes:"⏩ Se apresura",
+        sb_notfinish:"🧩 A menudo no termina",
+        sb_calls:"📞 Notas de conducta / llamadas a casa",
+        sb_noconcerns:"👍 Sin preocupaciones mayores",
+
+        hb_starts:"🚀 Empieza por su cuenta",
+        hb_reminders:"⏰ Necesita recordatorios pero lo hace",
+        hb_tears:"😭 Peleas / lágrimas son comunes",
+        hb_neg:"💔 Dice “soy tonto/a” o “no puedo”",
+        hb_avoids:"🙈 Evita la tarea u oculta tareas",
+
+        behaviorNotesLabel:"🗒️ Notas:",
+        strengthsAcademic:"📚 Fortalezas académicas / aprendizaje:",
+        strengthsPersonal:"💛 Fortalezas personales (carácter, talentos, habilidades sociales):",
+        wins:"🏆 Logros de este año (grandes o pequeños):",
+        concernsTop:"⚠️ Principales preocupaciones (académicas, emocionales o conducta):",
+
+        hTop:"🎯 1–3 prioridades (escribe aquí):",
+        hSub:"En las próximas 6–8 semanas, nuestra familia se enfocará en:",
+        supportNeeded:"🤝 Apoyo que necesitamos de la escuela / D.E.Bs:",
+        signature:"✍🏽 Firma del padre/madre/tutor:",
+        signaturePh:"Escribe tu nombre",
+        signDate:"📅 Fecha:",
+
+        saveBtn:"💾 Guardar Resumen del Estudiante",
+
+        alertMissing:"Por favor, escribe el nombre del estudiante y el grado antes de guardar.",
+        alertSaved:"Guardado ✅ Enviando…",
       },
 
       fr: {
-        language:"Langue",
-        tagline:"Libérer le génie par l’apprentissage ✨",
+        langLabel:"Langue",
         title:"Aperçu de Mi-Année de l’Élève",
-        subtitle:"Un point clair pour les parents (zéro honte, juste de la clarté 💡)",
+        subtitle:"Parent Power Circle • D.E.Bs Learning Academy",
 
-        secA:"Informations sur l’élève",
-        studentName:"Nom de l’élève",
-        grade:"Classe / Niveau",
-        school:"École",
-        teacher:"Enseignant(e) principal(e)",
-        todayDate:"Date du jour",
-        term:"Période (trimestre)",
-        termPH:"Ex.: Automne 2025",
+        secA:"👧🏽📘 Infos Élève",
+        secB:"😊🏫 Ressenti de l’École (Maintenant)",
+        secC:"📊✏️ Aperçu Académique Rapide",
+        secD:"🎯🧠 Comportement, Concentration & Organisation",
+        secE:"🌟🏆 Forces & Réussites",
+        secF:"⚠️😣 Défis & Inquiétudes",
+        secG:"❓🗣️ Questions pour l’École / l’Enseignant",
+        secH:"🎯📅 Priorités pour les 6–8 Prochaines Semaines",
 
-        secB:"Ressenti de l’École en Ce Moment",
-        b1:"Comment votre enfant semble-t-il/elle se sentir par rapport à l’école ? (cochez tout ce qui convient)",
-        feel1:"Content(e) la plupart des jours",
-        feel2:"Ça va / c’est l’école",
-        feel3:"Anxieux(se) / nerveux(se)",
-        feel4:"S’ennuie / démotivé(e)",
-        feel5:"Débordé(e) / frustré(e)",
-        feel6:"Je ne sais pas / signaux mixtes",
-        b2:"Comment je me sens par rapport à cette année scolaire ?",
-        yearFeel1:"Plutôt calme et confiant(e)",
-        yearFeel2:"Inquiet(ète) en silence",
-        yearFeel3:"Très stressé(e), je ne sais pas quoi faire",
-        yearFeel4:"Mitigé—certaines choses vont bien, d’autres non",
-        yearSummary:"En 1–2 phrases, décrivez l’année scolaire",
-        yearSummaryPH:"Ex.: Les notes semblent correctes, mais les devoirs sont une bataille et la confiance baisse.",
+        studentName:"Nom de l’élève :",
+        grade:"Classe / Niveau :",
+        school:"École :",
+        teacher:"Enseignant principal :",
+        todayDate:"Date du jour :",
+        term:"Période (trimestre) :",
+        termPh:"ex. Automne 2025",
 
-        secC:"Aperçu Académique Rapide",
-        cHint:"Utilisez le bulletin, le portail ou les commentaires de l’enseignant.",
-        thSubject:"Matière",
-        thGrade:"Note / Niveau",
-        thFeel:"Mon ressenti",
-        thNotes:"Notes de l’enseignant",
-        subReading:"Lecture / ELA",
-        subMath:"Mathématiques",
-        subScience:"Sciences",
-        subSocial:"Sciences sociales",
-        otherSubPH:"Autre matière...",
-        feelOpt1:"Confiant(e) ✅",
-        feelOpt2:"Ça va 🙂",
-        feelOpt3:"Inquiet(ète) 😕",
-        feelOpt4:"Je ne sais pas 🤷🏽‍♀️",
+        b1:"Comment mon enfant semble-t-il/elle se sentir par rapport à l’école ? (cochez tout ce qui s’applique)",
+        b2:"Comment est-ce que je me sens par rapport à cette année scolaire ?",
+        yearSummaryLabel:"📝 En une ou deux phrases, décrivez cette année scolaire jusqu’ici :",
+        yearSummaryPh:"Exemple : Les notes sont correctes, mais les devoirs sont devenus difficiles et la confiance baisse.",
 
-        secD:"Comportement, Attention & Organisation",
-        dSchool:"À l’école (commentaires de l’enseignant) :",
-        sb1:"Généralement concentré(e)",
-        sb2:"Besoin de rappels / recentrage",
-        sb3:"Travail fait trop vite",
-        sb4:"Ne termine pas souvent",
-        sb5:"Notes / appels à la maison",
-        sb6:"Pas de préoccupations majeures",
-        dHome:"À la maison (devoirs / étude) :",
-        hb1:"Commence seul(e)",
-        hb2:"Rappels nécessaires mais le fait",
-        hb3:"Disputes / larmes fréquentes",
-        hb4:"Dit « je suis nul(le) » / « je n’y arrive pas »",
-        hb5:"Évite / cache les devoirs",
-        behaviorNotes:"Notes",
+        feel_excited:"😍 Enthousiaste la plupart des jours",
+        feel_fine:"😐 Ça va / « c’est l’école »",
+        feel_anxious:"😟 Anxieux(se) / nerveux(se)",
+        feel_bored:"😴 Ennuyé(e) / démotivé(e)",
+        feel_overwhelmed:"😣 Débordé(e) / frustré(e)",
+        feel_not_sure:"🤷🏽‍♀️ Pas sûr(e) / signaux mixtes",
 
-        secE:"Forces & Réussites",
-        strengthsAcademic:"Forces scolaires",
-        strengthsPersonal:"Forces personnelles (caractère, talents, social)",
-        wins:"Réussites de l’année (grandes ou petites)",
+        year_calm:"😌 Plutôt calme et confiant(e)",
+        year_worried:"😬 Inquiet(ète) en silence",
+        year_stressed:"😰 Très stressé(e) et perdu(e)",
+        year_mixed:"🎭 Mitigé—certaines choses vont bien, d’autres non",
 
-        secF:"Défis & Inquiétudes",
-        concernsTop:"Principales inquiétudes (scolaires, émotionnelles, comportement)",
+        cHint:"📌 Utilisez le bulletin, le portail, ou les commentaires de l’enseignant.",
+        cSubject:"Matière",
+        cGradeLevel:"Note / Niveau",
+        cHowIFeel:"Ressenti",
+        cTeacherNotes:"Notes de l’enseignant",
+        cReading:"Lecture / ELA",
+        cMath:"Maths",
+        cScience:"Sciences",
+        cSocial:"Sciences sociales",
+        otherSubjectPh:"Autre matière...",
 
-        secG:"Questions pour l’École / l’Enseignant",
-        q1:"Question 1",
-        q2:"Question 2",
-        q3:"Question 3",
+        feel_confident:"Confiant(e) ✅",
+        feel_okay:"Ça va 🙂",
+        feel_concerned:"Inquiet(ète) 😕",
+        feel_notsure:"Pas sûr(e) 🤷🏽‍♀️",
 
-        secH:"Priorités pour les 6–8 Prochaines Semaines",
-        hHint:"Au cours des 6–8 prochaines semaines, notre famille se concentre sur :",
-        supportNeeded:"Soutien nécessaire (école / D.E.Bs)",
-        signature:"Signature parent/tuteur",
-        signaturePH:"Tapez votre nom",
-        signDate:"Date",
+        dAtSchoolTitle:"🏫 À l’école",
+        dAtSchoolNote:"(commentaires / notes) :",
+        dAtHomeTitle:"🏠 À la maison (devoirs / étude)",
 
-        saveBtn:"Enregistrer l’aperçu",
-        privacyNote:"🔒 Vos infos sont enregistrées sur votre appareil et envoyées à D.E.Bs pour examen. Pas de spam.",
-        alertMissing:"Veuillez entrer le nom de l’élève et la classe."
+        sb_focused:"✅ Souvent concentré(e)",
+        sb_reminders:"🔁 Besoin de rappels / recadrage",
+        sb_rushes:"⏩ Va trop vite",
+        sb_notfinish:"🧩 Ne finit pas souvent",
+        sb_calls:"📞 Notes / appels à la maison",
+        sb_noconcerns:"👍 Aucune inquiétude majeure",
+
+        hb_starts:"🚀 Commence seul(e)",
+        hb_reminders:"⏰ Besoin de rappels mais le fait",
+        hb_tears:"😭 Conflits / larmes fréquents",
+        hb_neg:"💔 Dit « je suis nul(le) » / « je n’y arrive pas »",
+        hb_avoids:"🙈 Évite les devoirs / cache des tâches",
+
+        behaviorNotesLabel:"🗒️ Notes :",
+        strengthsAcademic:"📚 Forces académiques :",
+        strengthsPersonal:"💛 Forces personnelles (caractère, talents, social) :",
+        wins:"🏆 Réussites (grandes ou petites) :",
+        concernsTop:"⚠️ Principales inquiétudes (académique, émotionnel, comportement) :",
+
+        hTop:"🎯 1–3 priorités (écrire ici) :",
+        hSub:"Au cours des 6–8 prochaines semaines, notre famille se concentre sur :",
+        supportNeeded:"🤝 Soutien nécessaire de l’école / D.E.Bs :",
+        signature:"✍🏽 Signature parent/tuteur :",
+        signaturePh:"Tapez votre nom",
+        signDate:"📅 Date :",
+
+        saveBtn:"💾 Enregistrer l’aperçu",
+
+        alertMissing:"Veuillez saisir le nom de l’élève et la classe avant d’enregistrer.",
+        alertSaved:"Enregistré ✅ Envoi…",
       },
 
       zh: {
-        language:"语言",
-        tagline:"用学习解锁卓越 ✨",
+        langLabel:"语言",
         title:"学年中期学生快照",
-        subtitle:"家长清晰盘点（不批评，只求明白 💡）",
+        subtitle:"Parent Power Circle • D.E.Bs Learning Academy",
 
-        secA:"学生信息",
-        studentName:"学生姓名",
-        grade:"年级",
-        school:"学校",
-        teacher:"班主任/主要老师",
-        todayDate:"今天日期",
-        term:"学期/阶段",
-        termPH:"例如：2025 秋季",
+        secA:"👧🏽📘 学生信息",
+        secB:"😊🏫 目前的上学感受",
+        secC:"📊✏️ 学业快速概览",
+        secD:"🎯🧠 行为、专注与组织",
+        secE:"🌟🏆 优势与成果",
+        secF:"⚠️😣 挑战与担忧",
+        secG:"❓🗣️ 给学校/老师的问题",
+        secH:"🎯📅 未来6–8周的优先重点",
 
-        secB:"现在上学的感受",
-        b1:"孩子对学校的总体感受是？（可多选）",
-        feel1:"大多数日子很期待",
-        feel2:"还好 / 就是上学",
-        feel3:"焦虑 / 紧张",
-        feel4:"无聊 / 缺乏动力",
-        feel5:"压力大 / 挫败",
-        feel6:"不确定 / 信号混合",
-        b2:"我对这个学年的感受是？",
-        yearFeel1:"总体平静且有信心",
-        yearFeel2:"有点担心",
-        yearFeel3:"很焦虑，不知道怎么办",
-        yearFeel4:"复杂—有的很好，有的很糟",
-        yearSummary:"用1–2句话描述本学年至今情况",
-        yearSummaryPH:"例如：成绩看起来还行，但做作业变成了大战，信心在下降。",
+        studentName:"学生姓名：",
+        grade:"年级：",
+        school:"学校：",
+        teacher:"班主任/主要老师：",
+        todayDate:"今天日期：",
+        term:"学期/阶段：",
+        termPh:"例如：2025年秋季",
 
-        secC:"学业快速概览",
-        cHint:"可参考成绩单、家长平台或老师评语。",
-        thSubject:"科目",
-        thGrade:"成绩/水平",
-        thFeel:"我的感受",
-        thNotes:"老师备注",
-        subReading:"阅读/英语",
-        subMath:"数学",
-        subScience:"科学",
-        subSocial:"社会科学",
-        otherSubPH:"其他科目...",
-        feelOpt1:"很有信心 ✅",
-        feelOpt2:"还可以 🙂",
-        feelOpt3:"有点担心 😕",
-        feelOpt4:"不确定 🤷🏽‍♀️",
+        b1:"孩子总体对学校的感觉如何？（可多选）",
+        b2:"我对目前这个学年的感觉是？",
+        yearSummaryLabel:"📝 用一两句话描述目前这个学年：",
+        yearSummaryPh:"例：成绩看起来还行，但作业时间变得很难，信心在下降。",
 
-        secD:"行为、专注与组织",
-        dSchool:"在学校（老师反馈）：",
-        sb1:"通常专注在任务上",
-        sb2:"需要提醒/纠正",
-        sb3:"做题太快",
-        sb4:"经常做不完",
-        sb5:"行为记录/电话",
-        sb6:"没有明显问题",
-        dHome:"在家（作业/学习）：",
-        hb1:"能主动开始",
-        hb2:"需要提醒但能完成",
-        hb3:"争吵/哭闹常见",
-        hb4:"说“我很笨/我不行”",
-        hb5:"逃避或藏作业",
-        behaviorNotes:"备注",
+        feel_excited:"😍 大多数时候很期待",
+        feel_fine:"😐 还好/就是上学",
+        feel_anxious:"😟 焦虑/紧张",
+        feel_bored:"😴 无聊/缺乏动力",
+        feel_overwhelmed:"😣 压力大/沮丧",
+        feel_not_sure:"🤷🏽‍♀️ 不确定/信号混杂",
 
-        secE:"优势与收获",
-        strengthsAcademic:"学业/学习优势",
-        strengthsPersonal:"个人优势（品格、特长、社交）",
-        wins:"本学年收获（大小都算）",
+        year_calm:"😌 基本冷静且有信心",
+        year_worried:"😬 暗自担心",
+        year_stressed:"😰 很焦虑，不知道怎么办",
+        year_mixed:"🎭 复杂—有些很好，有些不太行",
 
-        secF:"挑战与担忧",
-        concernsTop:"主要担忧（学业/情绪/行为）",
+        cHint:"📌 请参考成绩单、家长平台或老师反馈填写。",
+        cSubject:"科目",
+        cGradeLevel:"成绩/水平",
+        cHowIFeel:"我的感受",
+        cTeacherNotes:"老师备注",
+        cReading:"阅读/英语(ELA)",
+        cMath:"数学",
+        cScience:"科学",
+        cSocial:"社会学科",
+        otherSubjectPh:"其他科目…",
 
-        secG:"给学校/老师的问题",
-        q1:"问题 1",
-        q2:"问题 2",
-        q3:"问题 3",
+        feel_confident:"有信心 ✅",
+        feel_okay:"还可以 🙂",
+        feel_concerned:"担心 😕",
+        feel_notsure:"不确定 🤷🏽‍♀️",
 
-        secH:"未来6–8周重点方向",
-        hHint:"未来6–8周，我们家庭将重点关注：",
-        supportNeeded:"需要的支持（学校 / D.E.Bs）",
-        signature:"家长/监护人签名",
-        signaturePH:"输入你的名字",
-        signDate:"日期",
+        dAtSchoolTitle:"🏫 在学校",
+        dAtSchoolNote:"（老师备注/反馈）：",
+        dAtHomeTitle:"🏠 在家写作业/学习时",
 
-        saveBtn:"保存学生快照",
-        privacyNote:"🔒 信息会保存在你的设备并发送给D.E.Bs用于查看（无垃圾信息）。",
-        alertMissing:"请先填写学生姓名和年级。"
+        sb_focused:"✅ 通常专注",
+        sb_reminders:"🔁 需要提醒/纠正",
+        sb_rushes:"⏩ 做题太快",
+        sb_notfinish:"🧩 经常做不完",
+        sb_calls:"📞 行为记录/打电话回家",
+        sb_noconcerns:"👍 没有重大问题",
+
+        hb_starts:"🚀 能自己开始",
+        hb_reminders:"⏰ 需要提醒但能做",
+        hb_tears:"😭 争执/哭闹常见",
+        hb_neg:"💔 说“我很笨/我不行”",
+        hb_avoids:"🙈 逃避作业/藏作业",
+
+        behaviorNotesLabel:"🗒️ 备注：",
+        strengthsAcademic:"📚 学业/学习优势：",
+        strengthsPersonal:"💛 个人优势（品格/才艺/社交）：",
+        wins:"🏆 本学年的小/大成就：",
+        concernsTop:"⚠️ 主要担忧（学业/情绪/行为）：",
+
+        hTop:"🎯 1–3 个重点（写在这里）：",
+        hSub:"未来6–8周，我们家庭将重点关注：",
+        supportNeeded:"🤝 需要学校/D.E.Bs提供的支持：",
+        signature:"✍🏽 家长/监护人签名：",
+        signaturePh:"输入姓名",
+        signDate:"📅 日期：",
+
+        saveBtn:"💾 保存学生快照",
+
+        alertMissing:"保存前请填写学生姓名和年级。",
+        alertSaved:"已保存 ✅ 正在发送…",
       }
     };
 
+    let currentLang = "en";
+
+    function t(key){
+      return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.en[key]) || key;
+    }
+
+    function applyI18n(){
+      document.documentElement.lang = currentLang;
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        el.innerHTML = t(el.dataset.i18n);
+      });
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+        el.setAttribute("placeholder", t(el.dataset.i18nPlaceholder));
+      });
+      const langSel = document.getElementById("langSelect");
+      if(langSel) langSel.value = currentLang;
+    }
+
     // ================================
-    // ✅ Helpers
+    // ✅ HELPERS
     // ================================
     const $ = (id) => document.getElementById(id);
 
@@ -1043,179 +878,248 @@
       const el = document.querySelector(`input[name="${name}"]:checked`);
       return el ? el.value : "";
     }
-
-    // ================================
-    // ✅ Apply translations to UI
-    // ================================
-    function applyTranslations(){
-      const t = I18N[currentLang] || I18N.en;
-
-      // text nodes
-      document.querySelectorAll("[data-i18n]").forEach(el=>{
-        const key = el.getAttribute("data-i18n");
-        if(t[key] !== undefined) el.textContent = t[key];
-      });
-
-      // placeholders
-      document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
-        const key = el.getAttribute("data-i18n-placeholder");
-        if(t[key] !== undefined) el.setAttribute("placeholder", t[key]);
-      });
-
-      // select options (feel options)
-      document.querySelectorAll("option[data-i18n]").forEach(opt=>{
-        const key = opt.getAttribute("data-i18n");
-        if(t[key] !== undefined) opt.textContent = t[key];
-      });
-
-      // update html lang attribute
-      document.documentElement.lang = currentLang;
-
-      // persist
-      localStorage.setItem("debs_snapshot_lang", currentLang);
+    function setCheckedValues(name, values){
+      const set = new Set(values || []);
+      document.querySelectorAll(`input[name="${name}"]`).forEach(cb => cb.checked = set.has(cb.value));
+    }
+    function setRadioValue(name, value){
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.checked = (r.value === value));
     }
 
     // ================================
-    // ✅ Collect ALL form data (with lang code only)
+    // ✅ FORM COLLECTION
     // ================================
     function collectForm(){
       return {
         _lang: currentLang,
-
-        studentName: $("studentName")?.value?.trim() || "",
-        grade: $("grade")?.value?.trim() || "",
-        school: $("school")?.value?.trim() || "",
-        teacher: $("teacher")?.value?.trim() || "",
-        todayDate: $("todayDate")?.value || "",
-        term: $("term")?.value?.trim() || "",
+        studentName: $("studentName").value.trim(),
+        grade: $("grade").value.trim(),
+        school: $("school").value.trim(),
+        teacher: $("teacher").value.trim(),
+        todayDate: $("todayDate").value,
+        term: $("term").value.trim(),
 
         feelings: getCheckedValues("feelings"),
         yearFeel: getRadioValue("yearFeel"),
-        yearSummary: $("yearSummary")?.value?.trim() || "",
+        yearSummary: $("yearSummary").value.trim(),
 
         academic: {
-          reading: { grade: $("c_read_grade")?.value?.trim() || "", feel: $("c_read_feel")?.value || "", notes: $("c_read_notes")?.value?.trim() || "" },
-          math:    { grade: $("c_math_grade")?.value?.trim() || "", feel: $("c_math_feel")?.value || "", notes: $("c_math_notes")?.value?.trim() || "" },
-          science: { grade: $("c_sci_grade")?.value?.trim() || "", feel: $("c_sci_feel")?.value || "", notes: $("c_sci_notes")?.value?.trim() || "" },
-          social:  { grade: $("c_ss_grade")?.value?.trim() || "", feel: $("c_ss_feel")?.value || "", notes: $("c_ss_notes")?.value?.trim() || "" },
-          other1:  { name: $("c_other1_name")?.value?.trim() || "", grade: $("c_other1_grade")?.value?.trim() || "", feel: $("c_other1_feel")?.value || "", notes: $("c_other1_notes")?.value?.trim() || "" },
-          other2:  { name: $("c_other2_name")?.value?.trim() || "", grade: $("c_other2_grade")?.value?.trim() || "", feel: $("c_other2_feel")?.value || "", notes: $("c_other2_notes")?.value?.trim() || "" }
+          reading: { grade: $("c_read_grade").value.trim(), feel: $("c_read_feel").value, notes: $("c_read_notes").value.trim() },
+          math:    { grade: $("c_math_grade").value.trim(), feel: $("c_math_feel").value, notes: $("c_math_notes").value.trim() },
+          science: { grade: $("c_sci_grade").value.trim(),  feel: $("c_sci_feel").value,  notes: $("c_sci_notes").value.trim() },
+          social:  { grade: $("c_ss_grade").value.trim(),   feel: $("c_ss_feel").value,   notes: $("c_ss_notes").value.trim() },
+          other1:  { name: $("c_other1_name").value.trim(), grade: $("c_other1_grade").value.trim(), feel: $("c_other1_feel").value, notes: $("c_other1_notes").value.trim() },
+          other2:  { name: $("c_other2_name").value.trim(), grade: $("c_other2_grade").value.trim(), feel: $("c_other2_feel").value, notes: $("c_other2_notes").value.trim() },
         },
 
         schoolBeh: getCheckedValues("schoolBeh"),
         homeBeh: getCheckedValues("homeBeh"),
-        behaviorNotes: $("behaviorNotes")?.value?.trim() || "",
+        behaviorNotes: $("behaviorNotes").value.trim(),
 
-        strengthsAcademic: $("strengthsAcademic")?.value?.trim() || "",
-        strengthsPersonal: $("strengthsPersonal")?.value?.trim() || "",
-        wins: $("wins")?.value?.trim() || "",
+        strengthsAcademic: $("strengthsAcademic").value.trim(),
+        strengthsPersonal: $("strengthsPersonal").value.trim(),
+        wins: $("wins").value.trim(),
 
-        concernsTop: $("concernsTop")?.value?.trim() || "",
+        concernsTop: $("concernsTop").value.trim(),
 
-        questions: {
-          q1: $("q1")?.value?.trim() || "",
-          q2: $("q2")?.value?.trim() || "",
-          q3: $("q3")?.value?.trim() || ""
-        },
+        questions: { q1: $("q1").value.trim(), q2: $("q2").value.trim(), q3: $("q3").value.trim() },
 
-        priorityFocus: $("priorityFocus")?.value?.trim() || "",
-        supportNeeded: $("supportNeeded")?.value?.trim() || "",
+        priorityFocus: $("priorityFocus").value.trim(),
+        supportNeeded: $("supportNeeded").value.trim(),
 
-        signature: $("signature")?.value?.trim() || "",
-        signDate: $("signDate")?.value || "",
+        signature: $("signature").value.trim(),
+        signDate: $("signDate").value,
 
-        _savedAt: new Date().toISOString(),
-        submissionId: (crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`
+        _savedAt: new Date().toISOString()
       };
     }
 
+    function applyForm(data){
+      if(!data) return;
+      $("studentName").value = data.studentName || "";
+      $("grade").value = data.grade || "";
+      $("school").value = data.school || "";
+      $("teacher").value = data.teacher || "";
+      $("todayDate").value = data.todayDate || "";
+      $("term").value = data.term || "";
+
+      setCheckedValues("feelings", data.feelings || []);
+      setRadioValue("yearFeel", data.yearFeel || "");
+      $("yearSummary").value = data.yearSummary || "";
+
+      const a = data.academic || {};
+      const r = a.reading || {};
+      const m = a.math || {};
+      const s = a.science || {};
+      const so = a.social || {};
+      const o1 = a.other1 || {};
+      const o2 = a.other2 || {};
+
+      $("c_read_grade").value = r.grade || "";
+      $("c_read_feel").value = r.feel || "";
+      $("c_read_notes").value = r.notes || "";
+
+      $("c_math_grade").value = m.grade || "";
+      $("c_math_feel").value = m.feel || "";
+      $("c_math_notes").value = m.notes || "";
+
+      $("c_sci_grade").value = s.grade || "";
+      $("c_sci_feel").value = s.feel || "";
+      $("c_sci_notes").value = s.notes || "";
+
+      $("c_ss_grade").value = so.grade || "";
+      $("c_ss_feel").value = so.feel || "";
+      $("c_ss_notes").value = so.notes || "";
+
+      $("c_other1_name").value = o1.name || "";
+      $("c_other1_grade").value = o1.grade || "";
+      $("c_other1_feel").value = o1.feel || "";
+      $("c_other1_notes").value = o1.notes || "";
+
+      $("c_other2_name").value = o2.name || "";
+      $("c_other2_grade").value = o2.grade || "";
+      $("c_other2_feel").value = o2.feel || "";
+      $("c_other2_notes").value = o2.notes || "";
+
+      setCheckedValues("schoolBeh", data.schoolBeh || []);
+      setCheckedValues("homeBeh", data.homeBeh || []);
+      $("behaviorNotes").value = data.behaviorNotes || "";
+
+      $("strengthsAcademic").value = data.strengthsAcademic || "";
+      $("strengthsPersonal").value = data.strengthsPersonal || "";
+      $("wins").value = data.wins || "";
+
+      $("concernsTop").value = data.concernsTop || "";
+
+      const q = data.questions || {};
+      $("q1").value = q.q1 || "";
+      $("q2").value = q.q2 || "";
+      $("q3").value = q.q3 || "";
+
+      $("priorityFocus").value = data.priorityFocus || "";
+      $("supportNeeded").value = data.supportNeeded || "";
+
+      $("signature").value = data.signature || "";
+      $("signDate").value = data.signDate || "";
+    }
+
     // ================================
-    // ✅ Send to Google Sheets (Apps Script)
-    // Also sends legacy fields for compatibility with older doPost versions.
+    // ✅ GOOGLE SHEETS POST (works on GitHub Pages)
     // ================================
-    async function sendToGoogleSheet(snapshotData){
+    function flattenForLegacyColumns(data){
+      const strengths = [
+        data.strengthsAcademic && ("Academic Strengths: " + data.strengthsAcademic),
+        data.strengthsPersonal && ("Personal Strengths: " + data.strengthsPersonal),
+        data.wins && ("Wins: " + data.wins),
+      ].filter(Boolean).join("\\n\\n");
+
+      const behavior = [
+        data.schoolBeh?.length ? ("At school: " + data.schoolBeh.join(", ")) : "",
+        data.homeBeh?.length ? ("At home: " + data.homeBeh.join(", ")) : "",
+        data.behaviorNotes ? ("Notes: " + data.behaviorNotes) : ""
+      ].filter(Boolean).join("\\n");
+
+      const additionalNotes = [
+        data.questions?.q1 ? ("Q1: " + data.questions.q1) : "",
+        data.questions?.q2 ? ("Q2: " + data.questions.q2) : "",
+        data.questions?.q3 ? ("Q3: " + data.questions.q3) : "",
+        data.priorityFocus ? ("Priority Focus: " + data.priorityFocus) : "",
+        data.supportNeeded ? ("Support Needed: " + data.supportNeeded) : "",
+        data.signature ? ("Signature: " + data.signature) : "",
+        data.signDate ? ("Signed Date: " + data.signDate) : ""
+      ].filter(Boolean).join("\\n\\n");
+
+      return { strengths, behavior, additionalNotes };
+    }
+
+    async function sendToGoogleSheet(data){
+      const legacy = flattenForLegacyColumns(data);
       const body = new URLSearchParams();
 
-      // Full JSON (best)
-      body.append("payload", JSON.stringify(snapshotData));
+      // Your current Apps Script columns (legacy)
+      body.append("studentName", data.studentName || "");
+      body.append("grade", data.grade || "");
+      body.append("school", data.school || "");
+      body.append("teacher", data.teacher || "");
+      body.append("period", data.term || "");
+      body.append("date", data.todayDate || data.signDate || "");
+      body.append("yearDescription", data.yearSummary || "");
+      body.append("strengths", legacy.strengths || "");
+      body.append("concerns", data.concernsTop || "");
+      body.append("attendance", ""); // not in current form
+      body.append("behavior", legacy.behavior || "");
+      body.append("parentComments", data.yearFeel || "");
+      body.append("additionalNotes", legacy.additionalNotes || "");
 
-      // Key columns (nice + readable)
-      body.append("studentName", snapshotData.studentName || "");
-      body.append("grade", snapshotData.grade || "");
-      body.append("school", snapshotData.school || "");
-      body.append("teacher", snapshotData.teacher || "");
-      body.append("term", snapshotData.term || "");
-      body.append("todayDate", snapshotData.todayDate || "");
-      body.append("lang", snapshotData._lang || "en");
+      // Full JSON payload (optional if you later update Apps Script to store it)
+      body.append("payload", JSON.stringify(data));
 
-      // Legacy compatibility (in case an older doPost is still live)
-      body.append("period", snapshotData.term || "");
-      body.append("date", snapshotData.todayDate || "");
-      body.append("yearDescription", snapshotData.yearSummary || "");
-      body.append("strengths", `${snapshotData.strengthsAcademic || ""}\n${snapshotData.strengthsPersonal || ""}\nWins: ${snapshotData.wins || ""}`);
-      body.append("concerns", snapshotData.concernsTop || "");
-      body.append("attendance", ""); // not used in this version
-      body.append("behavior", snapshotData.behaviorNotes || "");
-      body.append("parentComments", "");
-      body.append("additionalNotes", snapshotData.supportNeeded || "");
-
-      // no-cors prevents browser blocking on GitHub Pages
       await fetch(SHEETS_WEBAPP_URL, {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-        body: body.toString()
+        body: body.toString(),
       });
     }
 
     // ================================
-    // ✅ Save → Send → Confirmation
+    // ✅ SAVE → SHEETS → CONFIRMATION
     // ================================
     async function saveSnapshotAndGo(){
-      const t = I18N[currentLang] || I18N.en;
       const data = collectForm();
 
       if(!data.studentName || !data.grade){
-        alert(t.alertMissing || "Please enter Student Name and Grade before saving.");
+        alert(t("alertMissing"));
         return;
       }
 
-      // Save locally (so confirmation can read it even if internet is flaky)
-      localStorage.setItem("debs_midyear_last_snapshot_v1", JSON.stringify(data));
+      // Save on the device first (so confirmation always has it)
+      localStorage.setItem(STORAGE_SNAPSHOT_KEY, JSON.stringify(data));
+      localStorage.setItem(STORAGE_DRAFT_KEY, JSON.stringify(data));
+      localStorage.setItem(STORAGE_LANG_KEY, currentLang);
 
-      // Disable button to prevent double clicks
       const btn = $("btnSaveSnapshot");
       if(btn){
         btn.disabled = true;
-        btn.style.opacity = "0.85";
-        btn.innerText = (currentLang==="zh") ? "正在保存… ⏳" : "Saving… ⏳";
+        btn.textContent = t("alertSaved") + " ⏳";
       }
 
-      // Post to sheet (even if it fails, we still redirect)
-      try { await sendToGoogleSheet(data); } catch(e){ console.error(e); }
+      try { await sendToGoogleSheet(data); } catch (e) { console.error(e); }
 
-      // Redirect to confirmation.html with language + submission id
-      window.location.href = `confirmation.html?lang=${encodeURIComponent(data._lang || "en")}&sid=${encodeURIComponent(data.submissionId)}`;
+      // Go to confirmation page (no huge URL needed)
+      window.location.href = `confirmation.html?lang=${encodeURIComponent(currentLang)}`;
     }
 
     // ================================
-    // ✅ Boot
+    // ✅ INIT
     // ================================
+    function initLang(){
+      const urlLang = new URLSearchParams(window.location.search).get("lang");
+      const stored = localStorage.getItem(STORAGE_LANG_KEY);
+      currentLang = urlLang || stored || "en";
+      if(!I18N[currentLang]) currentLang = "en";
+      applyI18n();
+    }
+
     document.addEventListener("DOMContentLoaded", ()=>{
-      // set language selector to saved/default
-      const select = $("langSelect");
-      if(select){
-        select.value = currentLang;
-        select.addEventListener("change", (e)=>{
-          currentLang = e.target.value;
-          applyTranslations();
+      initLang();
+
+      const langSel = $("langSelect");
+      if(langSel){
+        langSel.addEventListener("change", ()=>{
+          currentLang = langSel.value;
+          localStorage.setItem(STORAGE_LANG_KEY, currentLang);
+          applyI18n();
         });
       }
 
-      applyTranslations();
+      // Auto-load last draft on this device (silent)
+      const raw = localStorage.getItem(STORAGE_DRAFT_KEY);
+      if(raw){
+        try { applyForm(JSON.parse(raw)); } catch {}
+      }
 
-      const saveBtn = $("btnSaveSnapshot");
-      if(saveBtn) saveBtn.addEventListener("click", saveSnapshotAndGo);
+      $("btnSaveSnapshot").addEventListener("click", saveSnapshotAndGo);
     });
   </script>
 </body>

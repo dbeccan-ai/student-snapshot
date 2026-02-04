@@ -1,0 +1,1 @@
+Upload BOTH files to the SAME GitHub Pages repo root: index.html and confirmation.html
